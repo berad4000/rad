@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>PussyBurner</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.apollobuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexide.project.multiplatform.multiplatformasnature</nature>
+		<nature>com.adobe.flexide.project.multiplatform.multiplatformnature</nature>
+		<nature>com.adobe.flexbuilder.project.apollonature</nature>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] browser-src</name>
+			<type>2</type>
+			<location>C:/apps/grapefruit/RadVsRad/pussyburner/code/browser/src</location>
+		</link>
+		<link>
+			<name>[source path] dynamicTextureAtlasGenerator-src</name>
+			<type>2</type>
+			<location>C:/apps/grapefruit/RadVsRad/pussyburner/code/Dynamic-Texture-Atlas-Generator/dynamicTextureAtlasGenerator/src</location>
+		</link>
+		<link>
+			<name>[source path] greensock-v12-as3</name>
+			<type>2</type>
+			<location>C:/apps/grapefruit/RadVsRad/pussyburner/code/greensock-v12-as3</location>
+		</link>
+		<link>
+			<name>[source path] starling-src</name>
+			<type>2</type>
+			<location>C:/apps/grapefruit/RadVsRad/pussyburner/code/Starling-Framework/starling/src</location>
+		</link>
+	</linkedResources>
+</projectDescription>
