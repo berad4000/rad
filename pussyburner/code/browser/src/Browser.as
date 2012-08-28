@@ -15,10 +15,10 @@ package
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
-	import rad.rad.burn.Miniverse;
-	import rad.rad.burn.world.objects.BurnStat;
-	import rad.rad.burn.world.souls.types.Babe;
-	import rad.vs.soul.Soul;
+	import burnt.rad.burn.Miniverse;
+	import burnt.rad.burn.world.objects.BurnStat;
+	import burnt.rad.burn.world.souls.types.Babe;
+	import vs.creation.Soul;
 	
 	import starling.core.Starling;
 	import starling.events.Event;
