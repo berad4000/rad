@@ -1,8 +1,8 @@
 package burnt.rad.burn.world.souls.types
 {
 	import burnt.rad.burn.world.Assets;
-	import vs.creation.SoulControl;
-	import vs.creation.SoulModel;
+	import vs.creation.CreationControl;
+	import vs.creation.CreationCore;
 	
 	import starling.core.Starling;
 	import starling.events.Touch;
@@ -16,7 +16,7 @@ package burnt.rad.burn.world.souls.types
 		{
 		}
 		
-		override public function awake (model:SoulModel, control:SoulControl ):void
+		override public function awake (model:CreationCore, control:CreationControl ):void
 		{
 			super.awake( model, control );
 			

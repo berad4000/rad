@@ -2,11 +2,11 @@ package burnt.rad.burn.world.souls.types
 {
 	import com.greensock.TweenMax;
 	
-	import vs.creation.Soul;
-	import vs.creation.SoulControl;
-	import vs.creation.SoulModel;
-	import burnt.vs.creation.events.SoulEvent;
-	import burnt.vs.creation.views.StarlingSoulView;
+	import vs.Creation;
+	import vs.creation.CreationControl;
+	import vs.creation.CreationCore;
+	import vs.creation.events.CreationEvent;
+	import vs.creation.content.StarlingSoulView;
 	
 	import starling.core.Starling;
 	import starling.events.Event;
@@ -22,14 +22,14 @@ package burnt.rad.burn.world.souls.types
 		{
 		}
 		
-		override public function awake ( model:SoulModel, control:SoulControl ):void
+		override public function awake ( model:CreationCore, control:CreationControl ):void
 		{
 			super.awake( model, control );  
 			Starling.juggler.add( this ); 
-			this.model.self.addEventListener( SoulEvent.PAIN, showPain );
+			this.model.self.addEventListener( CreationEvent.PAIN, showPain );
 		}
 		
-		protected function showPain ( event:SoulEvent ):void
+		protected function showPain ( event:CreationEvent ):void
 		{
 			if ( Number( event.message ) > -2 ) return;
 			

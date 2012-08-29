@@ -9,19 +9,19 @@ package burnt.rad.burn.world.souls.types
 	import burnt.rad.burn.world.objects.BurnSoul;
 	import burnt.rad.burn.world.objects.BurnStat;
 	import burnt.rad.burn.world.objects.BurnToon;
-	import vs.creation.Soul;
-	import vs.creation.SoulControl;
-	import vs.creation.SoulFactory;
-	import vs.creation.SoulModel;
-	import burnt.vs.creation.commands.Birth;
-	import burnt.vs.creation.commands.FocalPointUpdateX;
-	import burnt.vs.creation.commands.FocalPointUpdateY;
-	import burnt.vs.creation.commands.StatUpdate;
-	import burnt.vs.creation.events.SoulEvent;
-	import burnt.vs.creation.events.StatEvent;
-	import burnt.vs.creation.model.objects.StatTypes;
-	import burnt.vs.creation.model.objects.StatValues;
-	import burnt.vs.creation.views.StarlingSoulView;
+	import vs.Creation;
+	import vs.creation.CreationControl;
+	import vs.creation.CreationFactory;
+	import vs.creation.CreationCore;
+	import vs.creation.commands.Birth;
+	import vs.creation.commands.FocalPointUpdateX;
+	import vs.creation.commands.FocalPointUpdateY;
+	import vs.creation.commands.StatUpdate;
+	import vs.creation.events.CreationEvent;
+	import vs.creation.events.StatEvent;
+	import vs.creation.core.objects.StatTypes;
+	import vs.creation.core.objects.StatValues;
+	import vs.creation.content.StarlingSoulView;
 	
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
@@ -62,7 +62,7 @@ package burnt.rad.burn.world.souls.types
 			
 		}
 		
-		override public function awake (model:SoulModel, control:SoulControl ):void
+		override public function awake (model:CreationCore, control:CreationControl ):void
 		{
 			super.awake( model, control );
 			
@@ -106,7 +106,7 @@ package burnt.rad.burn.world.souls.types
 			//EVENTS
 			this.addEventListener( TouchEvent.TOUCH, triggered );
 			this.control.stat.addEventListener( StatEvent.FILL, fill  	);
-			this.control.mode.addEventListener( SoulEvent.MODE_UPDATE, modeUpdate );
+			this.control.mode.addEventListener( CreationEvent.MODE_UPDATE, modeUpdate );
 			
 			//MODES
 			this.control.mode.updatePrimaryMode( BurnMode.UPDATE );
@@ -115,13 +115,13 @@ package burnt.rad.burn.world.souls.types
 			this.useHandCursor = true;
 		}
 		
-		override public function birth ( id:String ):Soul
+		override public function birth ( id:String ):Creation
 		{
 			trace("you birthing");
 			
 			this.model.self.activate();
 			
-			var soul:Soul = SoulFactory.instance().createSoul( id );
+			var soul:Creation = CreationFactory.instance().createSoul( id );
 			//soul.awake();
 		
 			//var view:StarlingSoulView; 
@@ -142,7 +142,7 @@ package burnt.rad.burn.world.souls.types
 			return soul;
 		}
 		
-		private function modeUpdate ( event:SoulEvent ):void
+		private function modeUpdate ( event:CreationEvent ):void
 		{
 			switch ( this.model.mode.primaryMode )
 			{
@@ -215,7 +215,7 @@ package burnt.rad.burn.world.souls.types
 			//trace( "excite " +  this.control.body.fetchStatValue(  "excite"  ) );
 		}
 		
-		override public function death ( event:SoulEvent ):void
+		override public function death ( event:CreationEvent ):void
 		{
 			super.death( event );
 			this.play( BurnToon.DEATH );

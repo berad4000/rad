@@ -3,7 +3,6 @@ package  burnt.rad.burn
   	import flash.events.Event;
   	
   	import burnt.rad.burn.world.Assets;
-  	import vs.starling.StarlingWorld;
   	
   	import starling.core.Starling;
   	import starling.display.Sprite;

@@ -10,18 +10,18 @@ package burnt.z-unused.burn.world
 	import burnt.z-unused.burn.model.BurnModelOLD;
 	import burnt.rad.burn.world.objects.BurnMode;
 	import burnt.rad.burn.world.objects.BurnStat;
-	import vs.starling.Background;
+	import vs.cosmos.content.landscape.Landscape;
 	import burnt.z-unused.burn.world.elements.WorldView;
 	import burnt.rad.burn.world.souls.types.Bombshell;
 	import burnt.rad.burn.world.souls.types.Babe;
 	import burnt.rad.burn.ui.TitleScreen;
 	import burnt.z-unused.vs.avatar.toons.Toon;
-	import vs.creation.Soul;
-	import vs.creation.SoulFactory;
-	import burnt.vs.creation.commands.FocalPointUpdateX;
-	import burnt.vs.creation.commands.FocalPointUpdateY;
-	import burnt.vs.creation.commands.ModeUpdate;
-	import burnt.vs.creation.views.StarlingSoulView;
+	import vs.Creation;
+	import vs.creation.CreationFactory;
+	import vs.creation.commands.FocalPointUpdateX;
+	import vs.creation.commands.FocalPointUpdateY;
+	import vs.creation.commands.ModeUpdate;
+	import vs.creation.content.StarlingSoulView;
 	import vs.starling.StarlingWorld;
 	
 	import starling.core.Starling;
@@ -39,7 +39,7 @@ package burnt.z-unused.burn.world
 	public class Student extends StarlingWorld 
 	{ 
 		private var _title:TitleScreen; 
-		private var _background:Background; 
+		private var _background:Landscape; 
 		private var _sky:Image; 
 		
 		private var movieClip1:ExtendedMovieClip;
@@ -53,7 +53,7 @@ package burnt.z-unused.burn.world
 		public var soulList:Array 		= new Array;
 		
 		//soul stuff
-		public var chat:Soul;
+		public var chat:Creation;
 		protected var focalX:FocalPointUpdateX;
 		protected var focalY:FocalPointUpdateY;
 		protected var updateMode:ModeUpdate;
@@ -75,7 +75,7 @@ package burnt.z-unused.burn.world
 			//updateMode	 	= new ModeUpdate( chat );
 		//}
 		
-		override public function addSoul( soul:Soul ):Soul
+		override public function addSoul( soul:Creation ):Creation
 		{
 			//if ( souls[ id ] != null ) return  souls[ id ];
 			

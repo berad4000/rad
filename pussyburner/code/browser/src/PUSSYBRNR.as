@@ -1,6 +1,6 @@
 package
 {
-	import brnr.BrnrContent;
+	import brnr.cosmos.BrnrCosmosContent;
 	import brnr.BrnrCosmos;
 	
 	import com.greensock.TweenMax;
@@ -16,21 +16,20 @@ package
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
-	import burnt.rad.burn.Miniverse;
 	import vs.Cosmos;
-	import vs.cosmos.CosmosContent;
+	import vs.cosmos.content.CosmosContent;
 	
 	import starling.core.Starling;
 	import starling.events.Event;
 	
 	//[SWF(width='1000',height='548',backgroundColor='#FFFFFF',frameRate='60')]
-	[SWF(width="1280", height="800", frameRate="30", backgroundColor="#000000")]
+	[SWF(width="1280", height="800", frameRate="60", backgroundColor="#000000")]
 	public class PUSSYBRNR extends Sprite
 	{
 		private var mStarling:Starling;
 		
 		protected var cosmos:BrnrCosmos;
-		protected var content:BrnrContent;
+		protected var content:BrnrCosmosContent;
 	
 		public function PUSSYBRNR()
 		{
@@ -50,7 +49,7 @@ package
 			viewPort.height = 800;
 			viewPort.width 	= 1280;
 			
-			mStarling = new Starling( BrnrContent, stage, viewPort);
+			mStarling = new Starling( BrnrCosmosContent, stage, viewPort);
 			mStarling.simulateMultitouch  = false;
 			mStarling.enableErrorChecking = false;
 			mStarling.start();
@@ -63,9 +62,7 @@ package
 		
 		private function rootCreated ( event:Event ):void
 		{
-			trace("LET THE GAMES BEGIN!!!!");
-			
-			if ( Starling.current.stage.getChildAt( 0 ) is BrnrContent ) content = Starling.current.stage.getChildAt( 0 ) as BrnrContent;
+			if ( Starling.current.stage.getChildAt( 0 ) is BrnrCosmosContent ) content = Starling.current.stage.getChildAt( 0 ) as BrnrCosmosContent;
 			
 			if ( content == null ) return;
 			

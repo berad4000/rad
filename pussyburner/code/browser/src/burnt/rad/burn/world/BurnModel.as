@@ -1,7 +1,7 @@
 package burnt.rad.burn.world
 {
-	import vs.creation.Soul;
-	import vs.cosmos.CosmosCore;
+	import vs.Creation;
+	import vs.cosmos.core.CosmosCore;
 	import vs.cosmos.VsWorld;
 	import burnt.rad.burn.BurnWorldZ;
 
@@ -10,7 +10,7 @@ package burnt.rad.burn.world
 		public var world:BurnWorldZ;
 		public var vs:VsWorld;
 		
-		public var babe:Soul; 
+		public var babe:Creation; 
 		
 		public function BurnModel()
 		{
