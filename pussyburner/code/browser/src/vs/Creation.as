@@ -1,124 +1,61 @@
 package vs
 {
-	import flash.events.EventDispatcher;
-	import flash.geom.Point;
+	import starling.textures.TextureAtlas;
 	
-	import vs.creation.events.CreationEvent;
-	import vs.creation.core.objects.StatValues;
-	import vs.cosmos.VsWorld;
-	import vs.creation.CreationCommand;
-	import vs.creation.CreationContent;
-	import vs.creation.CreationControl;
-	import vs.creation.CreationCore;
+	import vs.creation.content.CreationContent;
+	import vs.creation.control.CreationControl;
+	import vs.creation.core.CreationCore;
 
-	public class Creation extends EventDispatcher
+	public class Creation
 	{
-		protected var model:CreationCore;
+		protected var core:CreationCore;
 		protected var control:CreationControl;
 		
-		protected var _view:CreationContent;
+		public var content:CreationContent;
 		
-		public function Creation( view:CreationContent = null )
-		{
-			model 		= new CreationCore( this );
-			control 	= new CreationControl( model );
-			
-			model.self = this;
-			
-			if ( view != null ) this.appear( view );
-			
-			control.stat.addEventListener( CreationEvent.DEATH, newSoulEvent );
-			control.stat.addEventListener( CreationEvent.PAIN, 	painEvent );
-		}
-		
-		private function painEvent ( event:CreationEvent ):void
-		{
-			this.dispatchEvent( new CreationEvent( CreationEvent.PAIN, this, event.message ) );	
-		}
-		
-		private function newSoulEvent ( event:CreationEvent ):void
-		{
-			this.dispatchEvent( new CreationEvent( CreationEvent.DEATH, this ) );	
-		}
-		
-		public function appear ( view:CreationContent ):void
-		{
-			_view = view;
-			_view.awake( model, control );
-		}
-		
-		public function action ( command:CreationCommand ):void
-		{
-			control.command.execute( command );
-		}
-		
-		public function get focalPoint ():Point 					{ return this.model.focalPoint ;  }
-		public function updateFocalX ( value:Number ):void 			{ control.updateFocalX( value )  };
-		public function updateFocalY ( value:Number ):void 			{ control.updateFocalY( value )  };
-		
-		public function statValue ( id:String ):Number 				{ return control.stat.fetchStatValue( id ); }
-		public function statMax	  ( id:String ):Number				{ return control.stat.fetchStatMax( id ) };
-		public function addStat ( item:StatValues ):void			{ control.stat.addStat( item ); }
-		public function updateStat( id:String , value:Number ):void { control.stat.updateStat( id, value ); }
-		public function emptyStat ( id:String ):void				{ control.stat.emptyStat(  id ); }
-		
-		public function updateMode ( mode:String ):void 			{ control.mode.updatePrimaryMode( mode ); }
-		public function updateWorld ( world:VsWorld ):void			{ control.updateWorld( world ); }		
-		
-		public function awake():void
+		public function Creation()
 		{
 			
 		}
 		
-		public function activate():void
+		public function awake ( core:CreationCore = null, control:CreationControl = null, content:CreationContent = null ):void
 		{
-			this.dispatchEvent( new CreationEvent( CreationEvent.ACTIVATE ) );
+			if ( core 		!= null ) 	this.core = core;
+			if ( control 	!= null ) 	this.control = control;
+			if ( content 	!= null ) 	this.content = content;
+			
+			trace("i am looking for the main core " + core );
+			
+			setUp();
 		}
 		
-		public function resetAllStats ():void
+		//BurnToon.IDLE, atlas.getTextures("Horse" ), 14, true
+		//public function addToon ( id:String, fps:Number, loop:Boolean ):void
+		//{
+		//}
+		
+		public function set toon ( value:String ):void { this.content.play( value ) };
+		
+		public function addToon ( id:String, fps:Number, loop:Boolean ):void   
 		{
-			this.control.stat.resetAll();
+			if ( this.atlas == null ) return; 
+			trace("you are indeed adding an toon ");
+			trace("do we have content " + content );
+			content.addAnimation( id, this.core.atlas.getTextures( "LittleAdd"  ), fps, loop  );
 		}
 		
-		public function birth( type:String ):Creation
-		{  
-			if ( this.view == null ) return null;
-			return this.view.birth( type );
-		}
+		public function get id ():String	{ return this.core.id }
 		
+		public function set atlas		( value:TextureAtlas ):void 	{ this.control.updateAtlus( value ) }
+		public function get atlas		(  ):TextureAtlas 				{ return this.core.atlas 			}
 		
-		public function end():void
-		{	
-			model 		= null;
-			control 	= null;
-		}
+		public function set textureLocation ( value:String ):void 	{ this.control.updateTextureLocation( value )  }
+		public function get textureLocation ():String				{ return this.core.textureLocation }
 		
-		public function get view ():CreationContent
-		{
-			return _view;
-		}
+		public function set atlasLocation ( value:String ):void 	{ this.control.updateTextureLocation( value )  }
+		public function get atlasLocation ():String					{ return this.core.atlasLocation }
 		
-		public function get id ():String 					{ return model.id; }
-		public function get world():VsWorld					{ return model.world; }
-		
-		
-		public function set name ( value:String ):void 		{ this.model.name = value    		    }
-		public function get name ():String 					{ return model.name; 			}
-		public function set x ( value:Number ):void 		{ this.model.x = value    		}
-		public function get x ():Number 					{ return model.x; 				}
-		public function set y ( value:Number ):void 		{ this. model.y = value     	}
-		public function get y ():Number 					{ return model.y; 	}
-		public function set z ( value:Number ):void   		{ this.model.z = value    		}
-		public function get z ():Number 					{ return model.z	}
-		
-		public function set rotation ( value:Number ):void 	{      }
-		
-		public function alive 		( /*event here*/ ):void{}
-		
-		public function pain 		( /*event here*/ ):void { }
-		public function pleasure 	( /*event here*/ ):void { }
-		
-		public function death		( event:CreationEvent ):void { }
-		
+		public function setUp():void 	{};
+		public function appear():void 	{ this.content.appear() }
 	}
 }

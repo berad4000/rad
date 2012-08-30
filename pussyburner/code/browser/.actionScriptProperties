@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="PUSSYBRNR.as" projectUUID="6dd3df71-229d-4900-b5e7-bda90b5b9b1f" version="10">
+<actionScriptProperties analytics="false" mainApplicationPath="MAIN.as" projectUUID="6dd3df71-229d-4900-b5e7-bda90b5b9b1f" version="10">
   <compiler additionalCompilerArguments="-locale en_US" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="C:/Users/ph_ben/Documents/GitHub/rad/pussyburner/code/Starling-Framework/starling/src"/>
@@ -36,10 +36,9 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="PUSSYBRNR.as"/>
+    <application path="MAIN.as"/>
   </applications>
   <modules/>
   <buildCSSFiles/>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
 </actionScriptProperties>
-

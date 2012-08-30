@@ -5,7 +5,7 @@ package burnt.rad.burn
 	import burnt.rad.burn.world.BurnModel;
 	import burnt.rad.burn.world.BurnWorld;
 	import burnt.rad.burn.world.souls.types.Babe;
-	import vs.Creation;
+	import vs.Soul;
 	import vs.cosmos.VsWorld;
 	import vs.starling.StarlingWorld;
 	
@@ -29,7 +29,7 @@ package burnt.rad.burn
 			this.model.world = this;
 		}
 		
-		public function addSoul ( soul:Creation ):void
+		public function addSoul ( soul:Soul ):void
 		{
 			
 			//this.view.addSoul( soul );

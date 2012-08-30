@@ -8,20 +8,20 @@ package burnt.rad.burn.world.souls.types
 	import burnt.rad.burn.world.objects.BurnMode;
 	import burnt.rad.burn.world.objects.BurnSoul;
 	import burnt.rad.burn.world.objects.BurnStat;
-	import burnt.rad.burn.world.objects.BurnToon;
-	import vs.Creation;
-	import vs.creation.CreationControl;
-	import vs.creation.CreationFactory;
-	import vs.creation.CreationCore;
-	import vs.creation.commands.Birth;
-	import vs.creation.commands.FocalPointUpdateX;
-	import vs.creation.commands.FocalPointUpdateY;
-	import vs.creation.commands.StatUpdate;
-	import vs.creation.events.CreationEvent;
-	import vs.creation.events.StatEvent;
-	import vs.creation.core.objects.StatTypes;
-	import vs.creation.core.objects.StatValues;
-	import vs.creation.content.StarlingSoulView;
+	import burnt.rad.burn.world.objects.BrnrToon;
+	import vs.Soul;
+	import vs.soul.CreationControl;
+	import vs.soul.CreationFactory;
+	import vs.soul.CreationCore;
+	import vs.soul.commands.Birth;
+	import vs.creation.command.FocalPointUpdateX;
+	import vs.creation.command.FocalPointUpdateY;
+	import vs.creation.command.StatUpdate;
+	import vs.soul.events.CreationEvent;
+	import vs.soul.events.StatEvent;
+	import vs.soul.core.objects.StatTypes;
+	import vs.soul.core.objects.StatValues;
+	import vs.soul.content.StarlingSoulView;
 	
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
@@ -46,11 +46,11 @@ package burnt.rad.burn.world.souls.types
 			var atlas:TextureAtlas = Assets.fetchToon("PINKBALL"); 
 			if ( atlas == null ) return;
 			
-			this.addAnimation( BurnToon.IDLE, atlas.getTextures("pinkBall" ), 7, true  );
-			this.addAnimation( BurnToon.EXECUTE, atlas.getTextures("Plosion" ),  12, false );
+			this.addAnimation( BrnrToon.IDLE, atlas.getTextures("pinkBall" ), 7, true  );
+			this.addAnimation( BrnrToon.EXECUTE, atlas.getTextures("Plosion" ),  12, false );
 			
 			this.stop();
-			this.play(  BurnToon.IDLE  );
+			this.play(  BrnrToon.IDLE  );
 		}
 		
 		override public function set rotation(value:Number):void

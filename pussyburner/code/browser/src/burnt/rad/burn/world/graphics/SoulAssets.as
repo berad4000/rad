@@ -1,6 +1,6 @@
 package burnt.rad.burn.world.graphics
 {
-	import vs.creation.CreationAssetFiles;
+	import vs.soul.CreationAssetFiles;
 
 	public final class SoulAssets extends CreationAssetFiles
 	{

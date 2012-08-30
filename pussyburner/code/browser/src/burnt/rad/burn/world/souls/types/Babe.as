@@ -8,20 +8,20 @@ package burnt.rad.burn.world.souls.types
 	import burnt.rad.burn.world.objects.BurnMode;
 	import burnt.rad.burn.world.objects.BurnSoul;
 	import burnt.rad.burn.world.objects.BurnStat;
-	import burnt.rad.burn.world.objects.BurnToon;
-	import vs.Creation;
-	import vs.creation.CreationControl;
-	import vs.creation.CreationFactory;
-	import vs.creation.CreationCore;
-	import vs.creation.commands.Birth;
-	import vs.creation.commands.FocalPointUpdateX;
-	import vs.creation.commands.FocalPointUpdateY;
-	import vs.creation.commands.StatUpdate;
-	import vs.creation.events.CreationEvent;
-	import vs.creation.events.StatEvent;
-	import vs.creation.core.objects.StatTypes;
-	import vs.creation.core.objects.StatValues;
-	import vs.creation.content.StarlingSoulView;
+	import burnt.rad.burn.world.objects.BrnrToon;
+	import vs.Soul;
+	import vs.soul.CreationControl;
+	import vs.soul.CreationFactory;
+	import vs.soul.CreationCore;
+	import vs.soul.commands.Birth;
+	import vs.creation.command.FocalPointUpdateX;
+	import vs.creation.command.FocalPointUpdateY;
+	import vs.creation.command.StatUpdate;
+	import vs.soul.events.CreationEvent;
+	import vs.soul.events.StatEvent;
+	import vs.soul.core.objects.StatTypes;
+	import vs.soul.core.objects.StatValues;
+	import vs.soul.content.StarlingSoulView;
 	
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
@@ -78,13 +78,13 @@ package burnt.rad.burn.world.souls.types
 			var atlas:TextureAtlas = Assets.fetchToon("BOMBSHELL"); 
 			if ( atlas == null ) return;
 			
-			this.addAnimation( BurnToon.IDLE, atlas.getTextures("BabeIdle" ), 			24, true  );
-			this.addAnimation( BurnToon.ACTION, atlas.getTextures("BabeFinger" ), 		30, true  );
-			this.addAnimation( BurnToon.EXECUTE, atlas.getTextures("BabeGasm" ), 		12, false );
+			this.addAnimation( BrnrToon.IDLE, atlas.getTextures("BabeIdle" ), 			24, true  );
+			this.addAnimation( BrnrToon.ACTION, atlas.getTextures("BabeFinger" ), 		30, true  );
+			this.addAnimation( BrnrToon.EXECUTE, atlas.getTextures("BabeGasm" ), 		12, false );
 			
 			
 			
-			this.setCurrentAnimation( BurnToon.IDLE );
+			this.setCurrentAnimation( BrnrToon.IDLE );
 			this.play();
 			
 			
@@ -115,13 +115,13 @@ package burnt.rad.burn.world.souls.types
 			this.useHandCursor = true;
 		}
 		
-		override public function birth ( id:String ):Creation
+		override public function birth ( id:String ):Soul
 		{
 			trace("you birthing");
 			
 			this.model.self.activate();
 			
-			var soul:Creation = CreationFactory.instance().createSoul( id );
+			var soul:Soul = CreationFactory.instance().createSoul( id );
 			//soul.awake();
 		
 			//var view:StarlingSoulView; 
@@ -147,21 +147,21 @@ package burnt.rad.burn.world.souls.types
 			switch ( this.model.mode.primaryMode )
 			{
 				case BurnMode.UPDATE:
-				this.setCurrentAnimation( BurnToon.IDLE );
+				this.setCurrentAnimation( BrnrToon.IDLE );
 				this.play();
 				this.control.stat.emptyStat( BurnStat.FRICTION );
 				this.control.stat.emptyStat( BurnStat.EXCITE   );
 				break;
 				
 				case BurnMode.ACTIVATE:
-				this.setCurrentAnimation( BurnToon.ACTION );
+				this.setCurrentAnimation( BrnrToon.ACTION );
 				this.play();
 				this.updateStat( BurnStat.FRICTION, 0 );
 				break;
 				
 				case BurnMode.EXECUTE:
 				trace("create the gasm");
-				this.setCurrentAnimation( BurnToon.EXECUTE );
+				this.setCurrentAnimation( BrnrToon.EXECUTE );
 				this.play();
 					
 				birthing.param1 = this.model.focalPoint.x;
@@ -218,7 +218,7 @@ package burnt.rad.burn.world.souls.types
 		override public function death ( event:CreationEvent ):void
 		{
 			super.death( event );
-			this.play( BurnToon.DEATH );
+			this.play( BrnrToon.DEATH );
 		}
 		
 		private function triggered ( event:TouchEvent ):void

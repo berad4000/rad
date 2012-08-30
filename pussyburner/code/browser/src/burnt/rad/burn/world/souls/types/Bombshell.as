@@ -1,8 +1,8 @@
 package burnt.rad.burn.world.souls.types
 {
 	import burnt.rad.burn.world.Assets;
-	import vs.creation.CreationControl;
-	import vs.creation.CreationCore;
+	import vs.soul.CreationControl;
+	import vs.soul.CreationCore;
 	
 	import starling.core.Starling;
 	import starling.events.Touch;

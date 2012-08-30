@@ -18,7 +18,7 @@ package
 	import burnt.rad.burn.Miniverse;
 	import burnt.rad.burn.world.objects.BurnStat;
 	import burnt.rad.burn.world.souls.types.Babe;
-	import vs.Creation;
+	import vs.Soul;
 	
 	import starling.core.Starling;
 	import starling.events.Event;
@@ -29,7 +29,7 @@ package
 	{
 		private var mStarling:Starling;
 		
-		protected var babe:Creation;
+		protected var babe:Soul;
 		
 		private var _debugDisplay:TextField;
 		

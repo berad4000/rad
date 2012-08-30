@@ -16,12 +16,12 @@ package burnt.z-unused.burn.world
 	import burnt.rad.burn.world.souls.types.Babe;
 	import burnt.rad.burn.ui.TitleScreen;
 	import burnt.z-unused.vs.avatar.toons.Toon;
-	import vs.Creation;
-	import vs.creation.CreationFactory;
-	import vs.creation.commands.FocalPointUpdateX;
-	import vs.creation.commands.FocalPointUpdateY;
-	import vs.creation.commands.ModeUpdate;
-	import vs.creation.content.StarlingSoulView;
+	import vs.Soul;
+	import vs.soul.CreationFactory;
+	import vs.creation.command.FocalPointUpdateX;
+	import vs.creation.command.FocalPointUpdateY;
+	import vs.creation.command.ModeUpdate;
+	import vs.soul.content.StarlingSoulView;
 	import vs.starling.StarlingWorld;
 	
 	import starling.core.Starling;
@@ -53,7 +53,7 @@ package burnt.z-unused.burn.world
 		public var soulList:Array 		= new Array;
 		
 		//soul stuff
-		public var chat:Creation;
+		public var chat:Soul;
 		protected var focalX:FocalPointUpdateX;
 		protected var focalY:FocalPointUpdateY;
 		protected var updateMode:ModeUpdate;
@@ -75,7 +75,7 @@ package burnt.z-unused.burn.world
 			//updateMode	 	= new ModeUpdate( chat );
 		//}
 		
-		override public function addSoul( soul:Creation ):Creation
+		override public function addSoul( soul:Soul ):Soul
 		{
 			//if ( souls[ id ] != null ) return  souls[ id ];
 			

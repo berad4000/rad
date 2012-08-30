@@ -112,7 +112,6 @@ package burnt.rad.burn.world
 			return new textureClass[name];
 		}
 		
-        
         public static function getSound(name:String):Sound
         {
             var sound:Sound = sSounds[name] as Sound;
@@ -133,9 +132,7 @@ package burnt.rad.burn.world
 			return atlas;
 		}
 		
-		
-        
-        public static function getTextureAtlas():TextureAtlas
+		public static function getTextureAtlas():TextureAtlas
         {
             if (sTextureAtlas == null)
             {

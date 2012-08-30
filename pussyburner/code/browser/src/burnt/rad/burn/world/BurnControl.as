@@ -2,7 +2,7 @@ package burnt.rad.burn.world
 {
 	import flash.events.EventDispatcher;
 	
-	import vs.Creation;
+	import vs.Soul;
 	import vs.cosmos.control.CosmosControl;
 	import vs.cosmos.core.CosmosCore;
 

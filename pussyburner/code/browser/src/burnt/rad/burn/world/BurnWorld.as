@@ -18,18 +18,18 @@ package burnt.rad.burn.world
 	import burnt.rad.burn.ui.TitleScreen;
 	import burnt.rad.burn.world.objects.BurnMode;
 	import burnt.rad.burn.world.objects.BurnStat;
-	import burnt.rad.burn.world.objects.BurnToon;
+	import burnt.rad.burn.world.objects.BrnrToon;
 	import burnt.rad.burn.world.souls.types.Babe;
 	import burnt.rad.burn.world.souls.types.Cop;
 	import burnt.rad.burn.world.souls.types.Focus;
 	import burnt.rad.burn.world.souls.types.Horse;
 	import burnt.rad.burn.world.souls.types.PussyShot;
-	import vs.Creation;
-	import vs.creation.commands.FocalPointUpdateX;
-	import vs.creation.commands.FocalPointUpdateY;
-	import vs.creation.commands.ModeUpdate;
-	import vs.creation.events.CreationEvent;
-	import vs.creation.content.StarlingSoulView;
+	import vs.Soul;
+	import vs.creation.command.FocalPointUpdateX;
+	import vs.creation.command.FocalPointUpdateY;
+	import vs.creation.command.ModeUpdate;
+	import vs.soul.events.CreationEvent;
+	import vs.soul.content.StarlingSoulView;
 	import vs.cosmos.control.CosmosControl;
 	import vs.cosmos.core.CosmosCore;
 	import vs.cosmos.content.landscape.Landscape;
@@ -59,20 +59,20 @@ package burnt.rad.burn.world
 		protected var title:TitleScreen;
 		
 		//protected var shot:Soul;
-		protected var horse:Creation;
-		public var babe:Creation;
+		protected var horse:Soul;
+		public var babe:Soul;
 		
-		protected var focus:Creation;
+		protected var focus:Soul;
 		
 		protected var babeStart:Point = new Point( -310, 280);
 		protected var horseStart:Point = new Point( -400, 300 );
 		
-		protected var shots:Vector.<Creation> = new Vector.<Creation>;
+		protected var shots:Vector.<Soul> = new Vector.<Soul>;
 		protected var currentShot:Number = 0;
 		protected var shotMax:Number = 8
 		
-		protected var cop:Creation;
-		protected var cops:Vector.<Creation> = new Vector.<Creation>;
+		protected var cop:Soul;
+		protected var cops:Vector.<Soul> = new Vector.<Soul>;
 		protected var activeCops:Array = new Array;
 		protected var copAmount:Number = 5;
 		protected var copRemain:Number = 0;
@@ -122,14 +122,14 @@ package burnt.rad.burn.world
 			
 			TweenPlugin.activate([ BezierPlugin ]); 
 			
-			focus = new Creation( new Focus );
+			focus = new Soul( new Focus );
 			this.addChild( focus.view as StarlingSoulView );
 			focus.x = -100;
 			focus.y = -100;
 			
 			for ( var i:Number = 0; i < shotMax; i++ )
 			{
-				var soul:Creation = new Creation( new PussyShot );
+				var soul:Soul = new Soul( new PussyShot );
 				this.addChild( soul.view as StarlingSoulView );
 				soul.x = - 100;
 				soul.y = -100;
@@ -145,7 +145,7 @@ package burnt.rad.burn.world
 			
 			for ( var b:Number = 0; b < this.copAmount; b++ )
 			{
-				cop = new Creation( new Cop );
+				cop = new Soul( new Cop );
 				var pos:Point = this.copPositions[ b ];
 				cop.x = -400;
 				cop.y = pos.y;
@@ -169,7 +169,7 @@ package burnt.rad.burn.world
 			
 		}
 		
-		protected function rollCop ( cop:Creation ):void
+		protected function rollCop ( cop:Soul ):void
 		{
 			var pos:Point = this.copPositions[ Number( cop.name ) ];
 			
@@ -193,12 +193,12 @@ package burnt.rad.burn.world
 		
 		protected function driveCopComplete ( list:Array ):void
 		{
-			var currentCop:Creation = list[ 0 ];
+			var currentCop:Soul = list[ 0 ];
 			if ( currentCop == null ) return;
 			driveCop( currentCop );
 		}
 		
-		protected function driveCop ( cop:Creation ):void
+		protected function driveCop ( cop:Soul ):void
 		{
 			var endPos:Point = this.copPositions[ Number( cop.name   ) ];
 			
@@ -217,10 +217,10 @@ package burnt.rad.burn.world
 											onCompleteParams:[[ cop ]] } );
 		}
 		
-		private function resetCop ( cop:Creation ):void
+		private function resetCop ( cop:Soul ):void
 		{
 			cop.resetAllStats();
-			cop.view.play( BurnToon.IDLE );
+			cop.view.play( BrnrToon.IDLE );
 			
 		}
 		
@@ -388,7 +388,7 @@ package burnt.rad.burn.world
 		{
 			this.removeEventListener( TouchEvent.TOUCH, touchTitle );
 			
-			horse = new Creation( new Horse );
+			horse = new Soul( new Horse );
 			
 			horse.x = horseStart.x;
 			horse.y = horseStart.y;
@@ -402,7 +402,7 @@ package burnt.rad.burn.world
 			horse.view.x = horseStart.x;
 			horse.view.y = horseStart.y;
 			
-			babe = new Creation( new Babe );
+			babe = new Soul( new Babe );
 			
 			babe.x = babeStart.x;
 			babe.y = babeStart.y;
@@ -457,13 +457,13 @@ package burnt.rad.burn.world
 			
 			focus.view.visible = true;
 			
-			var shot:Creation = this.shots[ this.currentShot ] as Creation;
+			var shot:Soul = this.shots[ this.currentShot ] as Soul;
 			this.addChild( shot.view as StarlingSoulView );
 			
 			this.currentShot += 1;
 			if ( this.currentShot >= this.shotMax ) this.currentShot = 0;
 			
-			shot.view.play( BurnToon.IDLE );
+			shot.view.play( BrnrToon.IDLE );
 			
 			shot.view.visible = true;
 			
@@ -522,7 +522,7 @@ package burnt.rad.burn.world
 		
 		protected function attackComplete( group:Array ):void
 		{
-			var source:Creation = group[ 0 ];
+			var source:Soul = group[ 0 ];
 			
 			var destXA:Number 	= source.view.x; 
 			var destYA:Number 	= source.view.y;
@@ -545,9 +545,9 @@ package burnt.rad.burn.world
 		private function shotOver( group:Array  ):void
 		{
 		
-			var shot:Creation = group[0];
+			var shot:Soul = group[0];
 			//shot.view.visible = false;
-			shot.view.play( BurnToon.EXECUTE );
+			shot.view.play( BrnrToon.EXECUTE );
 			
 			var clip:ExtendedMovieClip;
 			var copClip:ExtendedMovieClip;
@@ -599,7 +599,7 @@ package burnt.rad.burn.world
 			background.execute();
 		}
 		
-		override public function addSoul ( soul:Creation ):void
+		override public function addSoul ( soul:Soul ):void
 		{
 			soul.updateWorld( this.model.vs );
 			this.addChild( soul.view as StarlingSoulView );

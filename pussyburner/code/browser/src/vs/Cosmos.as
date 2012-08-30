@@ -1,5 +1,6 @@
 package vs
 {
+	import starling.core.Starling;
 	import starling.textures.Texture;
 	
 	import vs.cosmos.cause.CauseEnvironment;
@@ -41,6 +42,14 @@ package vs
 		public function addCauses():void 
 		{
 			//this.control.addEventListener( CauseEnvironment.ADD, addEnvironment ); 
+		}
+		
+		public function addCreation ( creation:Creation ):void
+		{
+			trace("looking for a creation " + creation );
+			creation.appear();
+			this.content.addChild( creation.content );
+			Starling.juggler.add( creation.content ); 
 		}
 		
 		public function addLandscape ( texture1:Texture,  texture2:Texture, data:DataLandscapeLayer ):void
