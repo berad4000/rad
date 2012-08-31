@@ -3,7 +3,7 @@ package vs.creation.command
 	
 	import flash.events.Event;
 	
-	import vs.soul.CreationCommand;
+	import burnt.z-unused.soul.CreationCommand;
 	import vs.Soul;
 
 	public class ModeUpdate extends CreationCommand

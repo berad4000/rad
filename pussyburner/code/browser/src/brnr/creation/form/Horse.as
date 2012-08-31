@@ -12,8 +12,8 @@ package brnr.creation.form
 		
 		override public function setUp():void
 		{
-			this.core.textureLocation	=  	"media/icon.png";
-			this.core.atlasLocation 	=	"media/icon.xml";
+			this.textureLocation	=  	"media/icon.png";
+			this.atlasLocation 	=	"media/icon.xml";
 		}
 		
 		override public function appear():void

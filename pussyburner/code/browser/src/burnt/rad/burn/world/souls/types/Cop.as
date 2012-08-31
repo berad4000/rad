@@ -10,18 +10,18 @@ package burnt.rad.burn.world.souls.types
 	import burnt.rad.burn.world.objects.BurnStat;
 	import burnt.rad.burn.world.objects.BrnrToon;
 	import vs.Soul;
-	import vs.soul.CreationControl;
-	import vs.soul.CreationFactory;
-	import vs.soul.CreationCore;
-	import vs.soul.commands.Birth;
+	import burnt.z-unused.soul.CreationControl;
+	import burnt.z-unused.soul.CreationFactory;
+	import burnt.z-unused.soul.CreationCore;
+	import burnt.z-unused.soul.commands.Birth;
 	import vs.creation.command.FocalPointUpdateX;
 	import vs.creation.command.FocalPointUpdateY;
 	import vs.creation.command.StatUpdate;
-	import vs.soul.events.CreationEvent;
-	import vs.soul.events.StatEvent;
-	import vs.soul.core.objects.StatTypes;
-	import vs.soul.core.objects.StatValues;
-	import vs.soul.content.StarlingSoulView;
+	import burnt.z-unused.soul.events.CreationEvent;
+	import burnt.z-unused.soul.events.StatEvent;
+	import burnt.z-unused.soul.core.objects.StatTypes;
+	import burnt.z-unused.soul.core.objects.StatValues;
+	import burnt.z-unused.soul.content.StarlingSoulView;
 	
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
@@ -80,7 +80,6 @@ package burnt.rad.burn.world.souls.types
 		{
 			super.awake( model, control );
 			
-			
 			core 		= new StatValues( BurnStat.CORE, 		StatTypes.CORE, 100, 0, 100 );
 			this.control.stat.batchStatValues( [ core ] );
 			
@@ -94,12 +93,9 @@ package burnt.rad.burn.world.souls.types
 			this.addAnimation( "dam2", 			atlas.getTextures("CopCarBase dam2" ), 14, true  );
 			this.addAnimation( "dam3", 			atlas.getTextures("CopCarBase dam3" ), 14, true  );
 			
-			
 			this.stop();
 			this.play(  BrnrToon.IDLE  );
 			//this.currentFrame = 6;
-			
-			
 		}
 		
 		

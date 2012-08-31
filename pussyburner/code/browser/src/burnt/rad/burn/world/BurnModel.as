@@ -1,7 +1,7 @@
 package burnt.rad.burn.world
 {
 	import vs.Soul;
-	import vs.cosmos.core.CosmosCore;
+	import vs.course.core.CourseCore;
 	import vs.cosmos.VsWorld;
 	import burnt.rad.burn.BurnWorldZ;
 

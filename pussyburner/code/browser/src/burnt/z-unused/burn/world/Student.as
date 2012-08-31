@@ -10,18 +10,18 @@ package burnt.z-unused.burn.world
 	import burnt.z-unused.burn.model.BurnModelOLD;
 	import burnt.rad.burn.world.objects.BurnMode;
 	import burnt.rad.burn.world.objects.BurnStat;
-	import vs.cosmos.content.landscape.Landscape;
+	import vs.course.content.landscape.Landscape;
 	import burnt.z-unused.burn.world.elements.WorldView;
 	import burnt.rad.burn.world.souls.types.Bombshell;
 	import burnt.rad.burn.world.souls.types.Babe;
 	import burnt.rad.burn.ui.TitleScreen;
 	import burnt.z-unused.vs.avatar.toons.Toon;
 	import vs.Soul;
-	import vs.soul.CreationFactory;
+	import burnt.z-unused.soul.CreationFactory;
 	import vs.creation.command.FocalPointUpdateX;
 	import vs.creation.command.FocalPointUpdateY;
 	import vs.creation.command.ModeUpdate;
-	import vs.soul.content.StarlingSoulView;
+	import burnt.z-unused.soul.content.StarlingSoulView;
 	import vs.starling.StarlingWorld;
 	
 	import starling.core.Starling;

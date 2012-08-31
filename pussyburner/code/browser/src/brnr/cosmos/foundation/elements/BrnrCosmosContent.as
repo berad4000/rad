@@ -1,8 +1,8 @@
 package brnr.cosmos.foundation.elements
 {
-	import vs.cosmos.content.CosmosContent;
-	import vs.cosmos.control.CosmosControl;
-	import vs.cosmos.core.CosmosCore;
+	import vs.cosmos.CosmosContent;
+	import vs.cosmos.CosmosControl;
+	import vs.cosmos.CosmosCore;
 
 	public class BrnrCosmosContent extends CosmosContent
 	{
@@ -12,7 +12,8 @@ package brnr.cosmos.foundation.elements
 		
 		override public function awake(core:CosmosCore, control:CosmosControl):void
 		{
-			super.awake( core, control );
+			super.awake( core, control ); 
+			trace("Awaking the COSMOS.");
 		}
 	}
 }

@@ -22,7 +22,7 @@ package brnr.creation.foundation
 		
 		override public function awake(core:CreationCore=null, control:CreationControl=null, content:CreationContent=null):void
 		{
-			trace("awaking a brnr creation ");
+			
 			if ( core == null )		this.brnrCore  		= new BrnrCreationCore( this );
 			if ( control == null )	this.brnrControl 	= new BrnrCreationControl(  this.brnrCore );
 			if ( content == null ) 	this.brnrContent 	= new BrnrCreationContent;

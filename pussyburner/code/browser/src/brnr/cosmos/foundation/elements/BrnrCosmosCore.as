@@ -1,11 +1,13 @@
 package brnr.cosmos.foundation.elements
 {
-	import vs.cosmos.core.CosmosCore;
+	import vs.Cosmos;
+	import vs.cosmos.CosmosCore;
 
 	public class BrnrCosmosCore extends CosmosCore
 	{
-		public function BrnrCosmosCore()
+		public function BrnrCosmosCore( i:Cosmos )
 		{
+			super( i );
 		}
 	}
 }

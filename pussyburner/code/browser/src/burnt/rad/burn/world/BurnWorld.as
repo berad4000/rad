@@ -28,12 +28,12 @@ package burnt.rad.burn.world
 	import vs.creation.command.FocalPointUpdateX;
 	import vs.creation.command.FocalPointUpdateY;
 	import vs.creation.command.ModeUpdate;
-	import vs.soul.events.CreationEvent;
-	import vs.soul.content.StarlingSoulView;
-	import vs.cosmos.control.CosmosControl;
-	import vs.cosmos.core.CosmosCore;
-	import vs.cosmos.content.landscape.Landscape;
-	import vs.cosmos.content.landscape.LandscapeLayer;
+	import burnt.z-unused.soul.events.CreationEvent;
+	import burnt.z-unused.soul.content.StarlingSoulView;
+	import vs.course.control.CourseControl;
+	import vs.course.core.CourseCore;
+	import vs.course.content.landscape.Landscape;
+	import vs.course.content.landscape.LandscapeLayer;
 	import vs.starling.StarlingWorld;
 	
 	import starling.display.DisplayObject;
@@ -95,7 +95,7 @@ package burnt.rad.burn.world
 			this.control = control;
 		}
 		
-		override public function awake ( model:CosmosCore, control:CosmosControl ):void
+		override public function awake ( model:CourseCore, control:CourseControl ):void
 		{
 			super.awake( model, control );
 			

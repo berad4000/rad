@@ -4,7 +4,7 @@ package vs.creation.control
 	
 	import starling.textures.TextureAtlas;
 	
-	import vs.Cosmos;
+	import vs.Course;
 	import vs.creation.control.elements.CommandControl;
 	import vs.creation.control.elements.ModeControl;
 	import vs.creation.control.elements.StatControl;
@@ -34,8 +34,12 @@ package vs.creation.control
 		}
 		
 		public function updateTextureLocation 	( location:String ):void 	{ this.core.textureLocation = location 	}
-		public function updateAtlasLocation		( location:String ):void	{ this.core.atlasLocation = location	}
-		public function updateCosmos			( cosmos:Cosmos ):void 		{ this.core.cosmos = cosmos				}
+		public function updateAtlasLocation		( location:String ):void	
+		{ 
+			trace("atlas location " + location );
+			this.core.atlasLocation = location	
+		}
+		public function updateCosmos			( cosmos:Course ):void 		{ this.core.cosmos = cosmos				}
 		public function updateFocalX 			( value:Number  ):void 		{ this.core.focalPoint.x = value;		}
 		public function updateFocalY 			( value:Number  ):void 		{ this.core.focalPoint.y = value;		}
 	}

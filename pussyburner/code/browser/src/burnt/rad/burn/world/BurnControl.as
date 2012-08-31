@@ -3,8 +3,8 @@ package burnt.rad.burn.world
 	import flash.events.EventDispatcher;
 	
 	import vs.Soul;
-	import vs.cosmos.control.CosmosControl;
-	import vs.cosmos.core.CosmosCore;
+	import vs.course.control.CourseControl;
+	import vs.course.core.CourseCore;
 
 	public class BurnControl extends EventDispatcher
 	{

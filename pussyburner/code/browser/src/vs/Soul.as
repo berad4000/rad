@@ -3,12 +3,12 @@ package vs
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
 	
-	import vs.soul.events.CreationEvent;
-	import vs.soul.core.objects.StatValues;
-	import vs.soul.CreationCommand;
-	import vs.soul.CreationContent;
-	import vs.soul.CreationControl;
-	import vs.soul.CreationCore;
+	import burnt.z-unused.soul.events.CreationEvent;
+	import burnt.z-unused.soul.core.objects.StatValues;
+	import burnt.z-unused.soul.CreationCommand;
+	import burnt.z-unused.soul.CreationContent;
+	import burnt.z-unused.soul.CreationControl;
+	import burnt.z-unused.soul.CreationCore;
 
 	public class Soul extends EventDispatcher
 	{

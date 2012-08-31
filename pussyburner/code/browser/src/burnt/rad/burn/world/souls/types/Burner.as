@@ -3,10 +3,10 @@ package burnt.rad.burn.world.souls.types
 	import com.greensock.TweenMax;
 	
 	import vs.Soul;
-	import vs.soul.CreationControl;
-	import vs.soul.CreationCore;
-	import vs.soul.events.CreationEvent;
-	import vs.soul.content.StarlingSoulView;
+	import burnt.z-unused.soul.CreationControl;
+	import burnt.z-unused.soul.CreationCore;
+	import burnt.z-unused.soul.events.CreationEvent;
+	import burnt.z-unused.soul.content.StarlingSoulView;
 	
 	import starling.core.Starling;
 	import starling.events.Event;

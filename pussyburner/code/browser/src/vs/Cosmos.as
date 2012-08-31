@@ -1,30 +1,29 @@
 package vs
 {
-	import starling.core.Starling;
-	import starling.textures.Texture;
-	
-	import vs.cosmos.cause.CauseEnvironment;
-	import vs.cosmos.content.CosmosContent;
-	import vs.cosmos.content.environment.Environment;
-	import vs.cosmos.content.landscape.Landscape;
-	import vs.cosmos.content.landscape.LandscapeLayer;
-	import vs.cosmos.control.CosmosControl;
-	import vs.cosmos.core.CosmosCore;
-	import vs.cosmos.core.data.DataLandscapeLayer;
+	import vs.cosmos.CosmosContent;
+	import vs.cosmos.CosmosControl;
+	import vs.cosmos.CosmosCore;
 
 	public class Cosmos
 	{
-		public var content:CosmosContent;
+		public var content:CosmosContent; 
 		
-		protected var core:CosmosCore;
-		protected var control:CosmosControl;
-		
-		protected var environment:Environment; 
-		protected var landscape:Landscape; 
+		protected var core:CosmosCore; 
+		protected var control:CosmosControl; 
 		
 		public function Cosmos()
 		{
 		}
+		
+		public function addCourse ( course:Course ):void
+		{
+			if( this.core.course != null ) this.content.removeChild( this.core.course.content );
+			if( this.core.course != null ) this.core.course.destroy();
+			if( this.core.course != null ) this.core.course = null;
+			
+			this.content.addChild( course.content );
+		}
+		
 		
 		public function awake ( core:CosmosCore = null, control:CosmosControl = null, content:CosmosContent = null ):void
 		{
@@ -32,46 +31,14 @@ package vs
 			if ( control 	!= null ) 	this.control = control;
 			if ( content 	!= null ) 	this.content = content;
 			
-			if ( this.core != null ) this.core.cosmos = this;
+			//if ( this.core != null ) this.core.cosmos = this;
 			
 			appear();
 		}
 		
-		public function appear():void {}
-		
-		public function addCauses():void 
+		public function appear():void 
 		{
-			//this.control.addEventListener( CauseEnvironment.ADD, addEnvironment ); 
+			
 		}
-		
-		public function addCreation ( creation:Creation ):void
-		{
-			trace("looking for a creation " + creation );
-			creation.appear();
-			this.content.addChild( creation.content );
-			Starling.juggler.add( creation.content ); 
-		}
-		
-		public function addLandscape ( texture1:Texture,  texture2:Texture, data:DataLandscapeLayer ):void
-		{
-			if ( landscape == null ) 
-			{
-				landscape = new Landscape;
-				landscape.awake( this.core, this.control );
-				content.addChild( landscape );
-			}
-				
-			landscape.addLayer( texture1, texture2, data.parallax, data.y );
-		}
-		
-		public function addEnvironment ( display:Environment ):void
-		{
-			trace("adding the environment dude ");
-			environment = display;
-			content.addChildAt( environment, 0 );
-		}
-		
-		
-		
 	}
 }

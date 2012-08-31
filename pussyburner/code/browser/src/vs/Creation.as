@@ -24,8 +24,6 @@ package vs
 			if ( control 	!= null ) 	this.control = control;
 			if ( content 	!= null ) 	this.content = content;
 			
-			trace("i am looking for the main core " + core );
-			
 			setUp();
 		}
 		
@@ -52,7 +50,7 @@ package vs
 		public function set textureLocation ( value:String ):void 	{ this.control.updateTextureLocation( value )  }
 		public function get textureLocation ():String				{ return this.core.textureLocation }
 		
-		public function set atlasLocation ( value:String ):void 	{ this.control.updateTextureLocation( value )  }
+		public function set atlasLocation ( value:String ):void 	{ this.control.updateAtlasLocation( value )  }
 		public function get atlasLocation ():String					{ return this.core.atlasLocation }
 		
 		public function setUp():void 	{};

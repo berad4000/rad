@@ -6,7 +6,7 @@ package vs.creation.core
 	
 	import starling.textures.TextureAtlas;
 	
-	import vs.Cosmos;
+	import vs.Course;
 	import vs.Creation;
 	import vs.creation.core.elements.CommandCore;
 	import vs.creation.core.elements.ModeCore;
@@ -14,7 +14,7 @@ package vs.creation.core
 
 	public class CreationCore
 	{
-		public var cosmos:Cosmos;
+		public var cosmos:Course;
 		
 		public var id:String
 		public var name:String;
