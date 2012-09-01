@@ -35,10 +35,6 @@ package brnr.course.foundation
 			if ( content != null ) this.brnrContent = content as BrnrCourseContent;
 			if ( content == null ) this.brnrContent = new BrnrCourseContent;
 			
-			trace( "BRN CORE " 		+ this.brnrCore    );
-			trace( "BRN CONTROL " 	+ this.brnrControl );
-			trace( "BRN CONTENT " 	+ this.brnrContent );
-			
 			super.awake( this.brnrCore, this.brnrControl, this.brnrContent );
 			this.brnrContent.awake( this.brnrCore, this.brnrControl );
 			

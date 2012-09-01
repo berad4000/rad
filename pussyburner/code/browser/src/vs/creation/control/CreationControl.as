@@ -20,7 +20,6 @@ package vs.creation.control
 		
 		public function CreationControl( core:CreationCore = null )
 		{
-			trace("creation control " + core );
 			this.core = core;
 			
 			this.stat 		= new StatControl( this.core	);
@@ -36,7 +35,6 @@ package vs.creation.control
 		public function updateTextureLocation 	( location:String ):void 	{ this.core.textureLocation = location 	}
 		public function updateAtlasLocation		( location:String ):void	
 		{ 
-			trace("atlas location " + location );
 			this.core.atlasLocation = location	
 		}
 		public function updateCosmos			( cosmos:Course ):void 		{ this.core.cosmos = cosmos				}

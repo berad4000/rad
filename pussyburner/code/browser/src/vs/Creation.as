@@ -37,12 +37,17 @@ package vs
 		public function addToon ( id:String, fps:Number, loop:Boolean ):void   
 		{
 			if ( this.atlas == null ) return; 
-			trace("you are indeed adding an toon ");
-			trace("do we have content " + content );
+		
 			content.addAnimation( id, this.core.atlas.getTextures( "LittleAdd"  ), fps, loop  );
 		}
 		
 		public function get id ():String	{ return this.core.id }
+		
+		public function get x ():Number		{ return this.core.x }
+		public function set x ( value:Number ):void { this.core.x = value }
+		
+		public function get y ():Number    { return this.core.y }
+		public function set y ( value:Number ):void { this.core.y = value }
 		
 		public function set atlas		( value:TextureAtlas ):void 	{ this.control.updateAtlus( value ) }
 		public function get atlas		(  ):TextureAtlas 				{ return this.core.atlas 			}

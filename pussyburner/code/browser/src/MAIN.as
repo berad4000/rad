@@ -14,11 +14,13 @@ package
 	import flash.display.StageQuality;
 	import flash.display.StageScaleMode;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
 	import flash.system.Capabilities;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
+	import flash.utils.Timer;
 	
 	import starling.core.Starling;
 	import starling.events.Event;
@@ -34,6 +36,8 @@ package
 		
 		protected var cosmos:BrnrSource;
 		protected var content:BrnrCosmosContent;
+		
+		protected var timer:Timer = new Timer( 6000 );
 	
 		public function MAIN()
 		{
@@ -73,7 +77,15 @@ package
 		
 			Starling.current.stage.addEventListener( Event.ENTER_FRAME, execute );
 			
-			this.stage.addEventListener( MouseEvent.MOUSE_UP, mouseUp );
+			//this.stage.addEventListener( MouseEvent.MOUSE_UP, mouseUp );
+			
+			timer.addEventListener( TimerEvent.TIMER, timerGO );
+			timer.start();
+		}
+		
+		private function timerGO ( event:TimerEvent ):void
+		{
+			this.cosmos.tryAgain();
 		}
 		
 		private function mouseUp ( event:MouseEvent ):void

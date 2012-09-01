@@ -31,7 +31,7 @@ package vs
 			if ( control 	!= null ) 	this.control = control;
 			if ( content 	!= null ) 	this.content = content;
 			
-			//if ( this.core != null ) this.core.cosmos = this;
+			if ( this.core != null ) this.core.cosmos = this;
 			
 			appear();
 		}

@@ -44,13 +44,15 @@ package vs
 		{
 			trace("destroying the course   ----- ");
 			this.control.destroy();
-			
 			if ( this.content.contains( environmentDisplay ) ) this.content.removeChild( environmentDisplay );
+			content 	= null;
+			core 		= null;
+			control 	= null;
 		}
 		
 		public function appear():void 
 		{
-			content.addEventListener( Event.ENTER_FRAME, execute );
+			//content.addEventListener( Event.ENTER_FRAME, execute );
 		}
 		
 		public function addCauses():void 
@@ -61,10 +63,10 @@ package vs
 		
 		public function addCreation ( creation:Creation ):void
 		{
-			trace("looking for a creation " + creation );
+			
 			creation.appear();
 			this.content.addChild( creation.content );
-			Starling.juggler.add( creation.content ); 
+			Starling.juggler.add( creation.content );
 		}
 		
 		public function addLandscape ( layer:LandscapeLayer ):void

@@ -27,9 +27,8 @@ package vs.creation.content
 		
 		public function appear():void 
 		{
-			
-			//this.x = this.core.x;
-			//this.y = this.core.y;
+			this.x = this.core.x;
+			this.y = this.core.y;
 		}
 		
 		public function removeCauses():void {}

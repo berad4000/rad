@@ -17,9 +17,12 @@ package starling.display
     import flash.utils.getQualifiedClassName;
     
     import starling.core.RenderSupport;
+    import starling.core.starling_internal;
     import starling.errors.AbstractClassError;
     import starling.events.Event;
-    import starling.utils.transformCoords;
+    import starling.utils.MatrixUtil;
+    
+    use namespace starling_internal;
     
     /**
      *  A DisplayObjectContainer represents a collection of display objects.
@@ -67,6 +70,7 @@ package starling.display
         /** Helper objects. */
         private static var sHelperMatrix:Matrix = new Matrix();
         private static var sHelperPoint:Point = new Point();
+        private static var sBroadcastListeners:Vector.<DisplayObject> = new <DisplayObject>[];
         
         // construction
         
@@ -96,21 +100,36 @@ package starling.display
         // child management
         
         /** Adds a child to the container. It will be at the frontmost position. */
-        public function addChild(child:DisplayObject):void
+        public function addChild(child:DisplayObject):DisplayObject
         {
             addChildAt(child, numChildren);
+            return child;
         }
         
         /** Adds a child to the container at a certain index. */
-        public function addChildAt(child:DisplayObject, index:int):void
+        public function addChildAt(child:DisplayObject, index:int):DisplayObject
         {
+            var numChildren:int = mChildren.length; 
+            
             if (index >= 0 && index <= numChildren)
             {
                 child.removeFromParent();
-                mChildren.splice(index, 0, child);
-                child.setParent(this);                
-                child.dispatchEvent(new Event(Event.ADDED, true));
-                if (stage) child.dispatchEventOnChildren(new Event(Event.ADDED_TO_STAGE));
+                
+                // 'splice' creates a temporary object, so we avoid it if it's not necessary
+                if (index == numChildren) mChildren.push(child);
+                else                      mChildren.splice(index, 0, child);
+                
+                child.setParent(this);
+                child.dispatchEventWith(Event.ADDED, true);
+                
+                if (stage)
+                {
+                    var container:DisplayObjectContainer = child as DisplayObjectContainer;
+                    if (container) container.broadcastEventWith(Event.ADDED_TO_STAGE);
+                    else           child.dispatchEventWith(Event.ADDED_TO_STAGE);
+                }
+                
+                return child;
             }
             else
             {
@@ -120,24 +139,35 @@ package starling.display
         
         /** Removes a child from the container. If the object is not a child, nothing happens. 
          *  If requested, the child will be disposed right away. */
-        public function removeChild(child:DisplayObject, dispose:Boolean=false):void
+        public function removeChild(child:DisplayObject, dispose:Boolean=false):DisplayObject
         {
             var childIndex:int = getChildIndex(child);
             if (childIndex != -1) removeChildAt(childIndex, dispose);
+            return child;
         }
         
         /** Removes a child at a certain index. Children above the child will move down. If
          *  requested, the child will be disposed right away. */
-        public function removeChildAt(index:int, dispose:Boolean=false):void
+        public function removeChildAt(index:int, dispose:Boolean=false):DisplayObject
         {
             if (index >= 0 && index < numChildren)
             {
                 var child:DisplayObject = mChildren[index];
-                child.dispatchEvent(new Event(Event.REMOVED, true));
-                if (stage) child.dispatchEventOnChildren(new Event(Event.REMOVED_FROM_STAGE));
+                child.dispatchEventWith(Event.REMOVED, true);
+                
+                if (stage)
+                {
+                    var container:DisplayObjectContainer = child as DisplayObjectContainer;
+                    if (container) container.broadcastEventWith(Event.REMOVED_FROM_STAGE);
+                    else           child.dispatchEventWith(Event.REMOVED_FROM_STAGE);
+                }
+                
                 child.setParent(null);
-                mChildren.splice(index, 1);
+                index = mChildren.indexOf(child); // index might have changed by event handler
+                if (index >= 0) mChildren.splice(index, 1); 
                 if (dispose) child.dispose();
+                
+                return child;
             }
             else
             {
@@ -236,7 +266,7 @@ package starling.display
             if (numChildren == 0)
             {
                 getTransformationMatrix(targetSpace, sHelperMatrix);
-                transformCoords(sHelperMatrix, 0.0, 0.0, sHelperPoint);
+                MatrixUtil.transformCoords(sHelperMatrix, 0.0, 0.0, sHelperPoint);
                 resultRect.setTo(sHelperPoint.x, sHelperPoint.y, 0, 0);
                 return resultRect;
             }
@@ -278,7 +308,7 @@ package starling.display
                 var child:DisplayObject = mChildren[i];
                 getTransformationMatrix(child, sHelperMatrix);
                 
-                transformCoords(sHelperMatrix, localX, localY, sHelperPoint);
+                MatrixUtil.transformCoords(sHelperMatrix, localX, localY, sHelperPoint);
                 var target:DisplayObject = child.hitTest(sHelperPoint, forTouch);
                 
                 if (target) return target;
@@ -296,17 +326,24 @@ package starling.display
             for (var i:int=0; i<numChildren; ++i)
             {
                 var child:DisplayObject = mChildren[i];
-                if (child.alpha != 0.0 && child.visible && child.scaleX != 0.0 && child.scaleY != 0.0)
+                if (child.hasVisibleArea)
                 {
-                    support.pushMatrix();
-                    support.pushBlendMode();
+                    var blendMode:String = child.blendMode;
+                    var blendModeChange:Boolean = blendMode != BlendMode.AUTO;
                     
-                    support.blendMode = child.blendMode;
+                    if (blendModeChange)
+                    {
+                        support.pushBlendMode();
+                        support.blendMode = blendMode;
+                    }
+
+                    support.pushMatrix();
                     support.transformMatrix(child);
                     child.render(support, alpha);
-                    
                     support.popMatrix();
-                    support.popBlendMode();
+                    
+                    if (blendModeChange)
+                        support.popBlendMode();
                 }
             }
         }
@@ -314,24 +351,31 @@ package starling.display
         /** Dispatches an event on all children (recursively). The event must not bubble. */
         public function broadcastEvent(event:Event):void
         {
-            if (event.bubbles) 
+            if (event.bubbles)
                 throw new ArgumentError("Broadcast of bubbling events is prohibited");
             
-            dispatchEventOnChildren(event);
+            // The event listeners might modify the display tree, which could make the loop crash. 
+            // Thus, we collect them in a list and iterate over that list instead.
+            // And since another listener could call this method internally, we have to take 
+            // care that the static helper vector does not get currupted.
+            
+            var fromIndex:int = sBroadcastListeners.length;
+            getChildEventListeners(this, event.type, sBroadcastListeners);
+            var toIndex:int = sBroadcastListeners.length;
+            
+            for (var i:int=fromIndex; i<toIndex; ++i)
+                sBroadcastListeners[i].dispatchEvent(event);
+            
+            sBroadcastListeners.length = fromIndex;
         }
         
-        /** @private */
-        internal override function dispatchEventOnChildren(event:Event):void 
-        { 
-            // the event listeners might modify the display tree, which could make the loop crash. 
-            // thus, we collect them in a list and iterate over that list instead.
-            
-            var listeners:Vector.<DisplayObject> = new <DisplayObject>[];
-            getChildEventListeners(this, event.type, listeners);
-            var numListeners:int = listeners.length;
-            
-            for (var i:int=0; i<numListeners; ++i)
-                listeners[i].dispatchEvent(event);
+        /** Dispatches an event with the given parameters on all children (recursively). 
+         *  The method uses an internal pool of event objects to avoid allocations. */
+        public function broadcastEventWith(type:String, data:Object=null):void
+        {
+            var event:Event = Event.fromPool(type, false, data);
+            broadcastEvent(event);
+            Event.toPool(event);
         }
         
         private function getChildEventListeners(object:DisplayObject, eventType:String, 

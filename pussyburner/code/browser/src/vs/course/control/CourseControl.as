@@ -22,11 +22,11 @@ package vs.course.control
 	{
 		protected var core:CourseCore;
 		
-		protected var atlusLoader:LoaderMax;
-		protected var creationTexutureLoader:LoaderMax;
+		protected var atlusLoader:LoaderMax; 				//these guys are causing a memory leak
+		protected var creationTexutureLoader:LoaderMax;		//these guys are causing a memory leak
 		
-		protected var environmentLoader:LoaderMax;
-		protected var landscapeLoader:LoaderMax;
+		protected var environmentLoader:LoaderMax;			//these guys are causeing a memory leak
+		protected var landscapeLoader:LoaderMax;			//these guys are causeing a memory leak
 		
 		 //we will be moving this into the model
 		
@@ -35,24 +35,170 @@ package vs.course.control
 			if ( core != null ) this.core = core;
 		}
 		
+		public function environment ( src:String = null ):void
+		{
+			loadEnvironment( src );	
+		}
+		
+		public function landscape ( src:String, parallax:Number = 1,  y:Number = 0, layer:int = 0 ):void
+		{
+			var landscape:LandscapeLayer = updateLandscape ();
+			landscape.parallax = parallax;
+			landscape.y			= y;
+			landscape.layer 	= layer;
+			
+			loadLandscapeLayer( src, landscape.id );
+		}
+		
+		public function creation ( type:String, x:Number = 0, y:Number = 0 ):void
+		{
+			var creation:Creation = updateCreation ( type );
+			creation.x = x;
+			creation.y = y;
+			loadAtlus( creation.atlasLocation, creation.id ); 
+		}
+		
+		public function updateLandscape ():LandscapeLayer
+		{
+			var landscapeLayer:LandscapeLayer = new LandscapeLayer;
+			this.core.landscape[ landscapeLayer.id ] = landscapeLayer;
+			this.core.landscapeList.push( this.core.landscape[ landscapeLayer.id ] );  
+			return this.core.landscape[ landscapeLayer.id ];
+		}
+		
+		private function updateTexture ( src:String ):Texture
+		{
+			if ( this.core.texture[ src ] != null ) return  this.core.texture[ src ];
+			
+			var texture:Texture = textureFromBitmapData( this.core.bitmapData[ src ] ) ;
+			if ( texture == null ) return null;
+			
+			this.core.texture[ src ] = texture;
+			this.core.textureList.push(  this.core.texture[ src ]   );
+			return this.core.texture[ src ];
+		}
+		
+		private function updateCreation ( type:String ):Creation
+		{
+			var creation:Creation = dynamicCreation ( type );
+			
+			if ( creation == null ) return null;
+			creation.awake();
+			this.core.creations[ creation.id ] = creation;
+			this.core.creationList.push( this.core.creations[ creation.id ] );
+			
+			return creation;
+		}
+		
+		
+		
+		public function updateAtlus( id:String, texture:Texture, atlus:XML ):TextureAtlas
+		{
+			var  texAt:TextureAtlas = new TextureAtlas( texture, atlus );
+			this.core.atlusTexture[ id ] = texAt;
+			this.core.atlusTextureList.push( this.core.atlusTexture[ id ] );  
+			return this.core.atlusTexture[ id ];
+		}
+		
+		public function updateEnvironment( id:String, src:String ):Environment
+		{
+			var texture:Texture = updateTexture( src );
+			if ( texture == null ) return null;
+			var environment:Environment = new Environment( texture ) ;
+			this.core.environment[ id ] = environment;
+			this.core.environmentList.push( this.core.environment[ id ] );  
+			return this.core.environment[ id ];
+		}
+		
+		private function updateBitmap ( id:String, bitmap:Bitmap ):BitmapData
+		{
+			var bitmapData:BitmapData	= new BitmapData( bitmap.width, bitmap.height );
+			bitmapData.draw( bitmap );
+			return updateBitmapData ( id, bitmapData );
+		}
+		
+		private function updateBitmapData ( id:String, data:BitmapData ):BitmapData
+		{
+			return this.core.bitmapData[ id ] = data;
+		}
+		
+		private function loadEnvironment( url:String ):void
+		{
+			if ( this.environmentLoader == null ) this.environmentLoader = new LoaderMax( { onChildComplete:loadEnvironmentComplete } );
+			environmentLoader.append( new ImageLoader( url ) ); 	
+			environmentLoader.load( false );
+		}
+		
+		private function loadEnvironmentComplete ( event:LoaderEvent = null ):void  
+		{
+			var loader:ImageLoader = ImageLoader( event.target ); 
+			if ( loader.content.rawContent is Bitmap == false ) return; //only uses bitmap content
+			updateBitmap ( loader.url, loader.content.rawContent );
+			
+			var environment:Environment = updateEnvironment( "FOR THE MOMENT THERE CAN BE ONLY ONE", loader.url );
+			addEnvironment( environment );
+		}
+		
 		public function destroy ():void
 		{
+			//empty all the holders--
+			var i:int = 0;
+			var max:int = 0;
+			
+			max = this.core.environmentList.length;
+			for ( i = 0; i < max; i++ )
+			{
+				var environ:Environment = this.core.environmentList[ i ];
+				environ.dispose();
+			}
+			
+			this.core.environmentList = null;
+			this.core.environment = null;
+			
+			max = this.core.atlusTextureList.length;
+			for ( i = 0; i < max; i++ )
+			{
+				var at:TextureAtlas = this.core.atlusTextureList[ i ];
+				at.dispose();
+			}
+			
+			this.core.atlusTextureList 	= null;
+			this.core.atlusTexture 		= null;
+			
+			max = this.core.textureList.length;
+			for ( i = 0; i < max; i++ )
+			{
+				var texture:Texture = this.core.textureList[ i ];
+				texture.dispose();
+			}
+			
+			this.core.textureList = null;
+			this.core.texture = null;
+			
+			
 			this.core.bitmapData 				= null;
 			this.core.creationLocation 			= null;
 			this.core.landscape 				= null;
-			this.core.textures					= null;
+			this.core.texture					= null;
 			this.core.creations 				= null;
 			this.core.atlus						= null;
 			
+			if ( environmentLoader != null )
+			{
+				environmentLoader.unload()
+				environmentLoader.dispose();
+				environmentLoader    = null;
+			}
+			
 			atlusLoader							= null;
 			creationTexutureLoader				= null;
-			
-			environmentLoader					= null;
 			landscapeLoader						= null;
+			
+			this.core = null;
 		}
 		
-		public function updateCreationLocation ( location:String ):void {
-			trace("you got a core " + core );
+		public function updateCreationLocation ( location:String ):void 
+		{
 			this.core.creationLocation = location 
 		}
 		
@@ -62,40 +208,9 @@ package vs.course.control
 			this.core.height 	= height;
 		}
 		
-		public function creation ( type:String, x:Number = 0, y:Number = 0 ):void
-		{
-			var creation:Creation = dynamicCreation ( type );
-			
-			if ( creation == null ) return;
-			creation.awake();
-			this.core.creations[ creation.id ] = creation; 
-			
-			//trace("ok looking for an atlus location boyz " + creation.atlasLocation );
-			
-			loadAtlus( creation.atlasLocation, creation.id ); 
-		}
-		
-		public function landscape ( src:String, parallax:Number = 1,  y:Number = 0, layer:int = 0 ):void
-		{
-			var  landscapeLayer:LandscapeLayer = new LandscapeLayer;
-			landscapeLayer.parallax = parallax;
-			landscapeLayer.y		= y;
-			landscapeLayer.layer 	= layer;
-			
-			this.core.landscape[ landscapeLayer.id ] 	= landscapeLayer;
-			loadLandscapeLayer( src, landscapeLayer.id );
-		}
-		
-		public function environment ( src:String = null ):void
-		{
-			loadEnvironment( src );	
-		}
-		
 		private function loadAtlus ( url:String, id:String ):void
 		{
-			//trace("loading the atlus " + url + " ::: " + id );
-			
-			if ( atlusLoader == null ) atlusLoader = new LoaderMax( { onChildComplete:loadAtlusComplete } );
+			if ( this.atlusLoader == null ) this.atlusLoader = new LoaderMax( { onChildComplete:loadAtlusComplete } );
 			
 			atlusLoader.append( new XMLLoader( url, { name:id }  ) ); 	
 			atlusLoader.load( false );
@@ -121,15 +236,15 @@ package vs.course.control
 		
 		private function loadCreationTextureComplete ( event:LoaderEvent ):void
 		{
-			var imageLoader:ImageLoader = ImageLoader( event.target ); 
-			if ( event.target.content.rawContent is Bitmap == false ) return; //only uses bitmap content
+			var loader:ImageLoader = ImageLoader( event.target ); 
+			if ( loader.rawContent is Bitmap == false ) return; //only uses bitmap content
 			
-			var bitmap:Bitmap 			= event.target.content.rawContent;
-			var creation:Creation 		= this.core.creations[ imageLoader.name ];
+			var bitmap:BitmapData 		= updateBitmap ( loader.url, loader.rawContent );
+			var creation:Creation 		= this.core.creations[ loader.name ];
 			var atlus:XML				= this.core.atlus[ creation.atlasLocation ];
 			
-			var texture:Texture	= Texture.fromBitmap( bitmap, true, false, core.scaleFactor);
-			var textureAtlus:TextureAtlas = new TextureAtlas( texture, atlus );
+			var texture:Texture	= updateTexture( loader.url ); 
+			var textureAtlus:TextureAtlas = updateAtlus( loader.url, texture, atlus );
 			
 			creation.atlas = textureAtlus;
 			addCreation ( creation );
@@ -171,38 +286,11 @@ package vs.course.control
 			var loader:ImageLoader = ImageLoader( event.target ); 
 			if ( loader.content.rawContent is Bitmap == false ) return; //only uses bitmap content
 			
-			var bitmap:Bitmap 			= event.target.content.rawContent;
-			var bitmapData:BitmapData	= new BitmapData( bitmap.width, bitmap.height );
-			bitmapData.draw( bitmap );
-			
-			this.core.bitmapData[ loader.url ] = bitmapData;
-			
+			updateBitmap ( loader.url, loader.content.rawContent );
 			var layer:LandscapeLayer = this.core.landscape[ loader.name ]; 
-			layer.updateTextures( textureFromBitmapData( bitmapData ), textureFromBitmapData( bitmapData )  );
+			layer.updateTextures(  updateTexture( loader.url ) , updateTexture( loader.url )  );
 			
 			this.core.cosmos.addLandscape( layer );
-		}
-		
-		private function loadEnvironment( url:String, id:String = null ):void
-		{
-			if ( environmentLoader == null ) environmentLoader = new LoaderMax( { onChildComplete:loadEnvironmentComplete } );
-			
-			environmentLoader.append( new ImageLoader( url ) ); 	
-			environmentLoader.load( false );
-		}
-		
-		private function loadEnvironmentComplete ( event:LoaderEvent ):void  
-		{
-			var loader:ImageLoader = ImageLoader( event.target ); 
-			if ( loader.content.rawContent is Bitmap == false ) return; //only uses bitmap content
-			
-			var bitmap:Bitmap 			= event.target.content.rawContent;
-			var bitmapData:BitmapData	= new BitmapData( bitmap.width, bitmap.height );
-			bitmapData.draw( bitmap );
-			
-			this.core.bitmapData[ loader.url ] = bitmapData;
-			var environment:Environment = new Environment( textureFromBitmapData( this.core.bitmapData[ loader.url ] ) );
-			addEnvironment( environment );
 		}
 		
 		private function addEnvironment( display:Environment ):void

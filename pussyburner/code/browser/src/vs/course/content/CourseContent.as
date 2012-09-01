@@ -20,9 +20,6 @@ package vs.course.content
 		
 		public function awake( core:CourseCore, control:CourseControl ):void
 		{
-			trace("just looking for a core " + core );
-			trace("just loooking for a control " + control );
-			
 			this.core 		= core;
 			this.control 	= control;
 			appear();
@@ -35,7 +32,7 @@ package vs.course.content
 		
 		public function removeCauses():void {}
 		
-		public function execute ( event:Event = null ):void	{}
+		public function execute (  ):void	{}
 		public function action ():void						{}
 	}
 }

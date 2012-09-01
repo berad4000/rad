@@ -156,25 +156,19 @@ package tests
         public function testRemoveEventListeners():void
         {
             var hitCount:int = 0;
-            
             var dispatcher:EventDispatcher = new EventDispatcher();
             
             dispatcher.addEventListener("Type1", onEvent);
             dispatcher.addEventListener("Type2", onEvent);
-            dispatcher.addEventListener("Type2", onEvent);
-            dispatcher.addEventListener("Type3", onEvent);
-            dispatcher.addEventListener("Type3", onEvent);
             dispatcher.addEventListener("Type3", onEvent);
             
             hitCount = 0;
             dispatcher.dispatchEvent(new Event("Type1"));
             Assert.assertEquals(1, hitCount);
             
-            hitCount = 0;
             dispatcher.dispatchEvent(new Event("Type2"));
             Assert.assertEquals(2, hitCount);
             
-            hitCount = 0;
             dispatcher.dispatchEvent(new Event("Type3"));
             Assert.assertEquals(3, hitCount);
             
@@ -183,12 +177,8 @@ package tests
             dispatcher.dispatchEvent(new Event("Type1"));
             Assert.assertEquals(0, hitCount);
             
-            hitCount = 0;
-            dispatcher.removeEventListeners("Type2");
-            dispatcher.dispatchEvent(new Event("Type2"));
-            Assert.assertEquals(0, hitCount);
             dispatcher.dispatchEvent(new Event("Type3"));
-            Assert.assertEquals(3, hitCount);
+            Assert.assertEquals(1, hitCount);
             
             hitCount = 0;
             dispatcher.removeEventListeners();
@@ -219,5 +209,114 @@ package tests
             });
         }
         
+        [Test]
+        public function testDuplicateEventHandler():void
+        {
+            var dispatcher:EventDispatcher = new EventDispatcher();
+            var callCount:int = 0;
+            
+            dispatcher.addEventListener("test", onEvent);
+            dispatcher.addEventListener("test", onEvent);
+            
+            dispatcher.dispatchEvent(new Event("test"));
+            Assert.assertEquals(1, callCount);
+            
+            function onEvent(event:Event):void
+            {
+                callCount++;
+            }
+        }
+        
+        [Test]
+        public function testBubbleWithModifiedChain():void
+        {
+            const eventType:String = "test";
+            
+            var grandParent:Sprite = new Sprite();
+            var parent:Sprite = new Sprite();
+            var child:Sprite = new Sprite();
+            
+            grandParent.addChild(parent);
+            parent.addChild(child);
+            
+            var hitCount:int = 0;
+            
+            // listener on 'child' changes display list; bubbling must not be affected.
+            
+            grandParent.addEventListener(eventType, onEvent);
+            parent.addEventListener(eventType, onEvent);
+            child.addEventListener(eventType, onEvent);
+            child.addEventListener(eventType, onEvent_removeFromParent);
+            
+            child.dispatchEvent(new Event(eventType, true));
+            
+            Assert.assertNull(parent.parent);
+            Assert.assertEquals(3, hitCount);
+            
+            function onEvent():void
+            {
+                hitCount++;
+            }
+            
+            function onEvent_removeFromParent():void
+            {
+                parent.removeFromParent();
+            }
+        }
+        
+        [Test]
+        public function testRedispatch():void
+        {
+            const eventType:String = "test";
+            
+            var grandParent:Sprite = new Sprite();
+            var parent:Sprite = new Sprite();
+            var child:Sprite = new Sprite();
+            
+            grandParent.addChild(parent);
+            parent.addChild(child);
+            
+            grandParent.addEventListener(eventType, onEvent);
+            parent.addEventListener(eventType, onEvent);
+            child.addEventListener(eventType, onEvent);
+            parent.addEventListener(eventType, onEvent_redispatch);
+            
+            var targets:Array = [];
+            var currentTargets:Array = [];
+            
+            child.dispatchEventWith(eventType, true);
+            
+            // main bubble
+            Assert.assertEquals(targets[0], child);
+            Assert.assertEquals(currentTargets[0], child);
+            
+            // main bubble
+            Assert.assertEquals(targets[1], child);
+            Assert.assertEquals(currentTargets[1], parent);
+            
+            // inner bubble
+            Assert.assertEquals(targets[2], parent);
+            Assert.assertEquals(currentTargets[2], parent);
+            
+            // inner bubble
+            Assert.assertEquals(targets[3], parent);
+            Assert.assertEquals(currentTargets[3], grandParent);
+            
+            // main bubble
+            Assert.assertEquals(targets[4], child);
+            Assert.assertEquals(currentTargets[4], grandParent);
+            
+            function onEvent(event:Event):void
+            {
+                targets.push(event.target);
+                currentTargets.push(event.currentTarget);
+            }
+            
+            function onEvent_redispatch(event:Event):void
+            {
+                parent.removeEventListener(eventType, onEvent_redispatch);
+                parent.dispatchEvent(event);
+            }
+        }
     }
 }

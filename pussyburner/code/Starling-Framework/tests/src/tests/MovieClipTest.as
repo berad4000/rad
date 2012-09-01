@@ -10,6 +10,8 @@
 
 package tests
 {
+    import flash.display3D.Context3DTextureFormat;
+    
     import flexunit.framework.Assert;
     
     import org.flexunit.assertThat;
@@ -29,11 +31,12 @@ package tests
         {
             var fps:Number = 4.0;
             var frameDuration:Number = 1.0 / fps;
+            var format:String = Context3DTextureFormat.BGRA;
             
-            var texture0:Texture = new ConcreteTexture(null, 16, 16, false, false);
-            var texture1:Texture = new ConcreteTexture(null, 16, 16, false, false);
-            var texture2:Texture = new ConcreteTexture(null, 16, 16, false, false);
-            var texture3:Texture = new ConcreteTexture(null, 16, 16, false, false);
+            var texture0:Texture = new ConcreteTexture(null, format, 16, 16, false, false);
+            var texture1:Texture = new ConcreteTexture(null, format, 16, 16, false, false);
+            var texture2:Texture = new ConcreteTexture(null, format, 16, 16, false, false);
+            var texture3:Texture = new ConcreteTexture(null, format, 16, 16, false, false);
             
             var movie:MovieClip = new MovieClip(new <Texture>[texture0], fps);
             
@@ -97,11 +100,12 @@ package tests
         {
             var fps:Number = 4.0;
             var frameDuration:Number = 1.0 / fps;
+            var format:String = Context3DTextureFormat.BGRA;
             
-            var texture0:Texture = new ConcreteTexture(null, 16, 16, false, false);
-            var texture1:Texture = new ConcreteTexture(null, 16, 16, false, false);
-            var texture2:Texture = new ConcreteTexture(null, 16, 16, false, false);
-            var texture3:Texture = new ConcreteTexture(null, 16, 16, false, false);
+            var texture0:Texture = new ConcreteTexture(null, format, 16, 16, false, false);
+            var texture1:Texture = new ConcreteTexture(null, format, 16, 16, false, false);
+            var texture2:Texture = new ConcreteTexture(null, format, 16, 16, false, false);
+            var texture3:Texture = new ConcreteTexture(null, format, 16, 16, false, false);
             
             var movie:MovieClip = new MovieClip(new <Texture>[texture0], fps);
             movie.addFrame(texture2, null, 0.5);
@@ -160,9 +164,6 @@ package tests
             movie.fps = 6.0;
             assertThat(movie.getFrameDuration(1), closeTo(0.5, E));
             assertThat(movie.getFrameDuration(0), closeTo(1.0 / 6.0, E));
-            
-            movie.fps = 0.0;
-            assertThat(movie.fps, closeTo(0.0, E));
         }
         
         [Test]
@@ -270,9 +271,10 @@ package tests
         private function createFrames(count:int):Vector.<Texture>
         {
             var frames:Vector.<Texture> = new <Texture>[];
+            var format:String = Context3DTextureFormat.BGRA;
             
             for (var i:int=0; i<count; ++i)
-                frames.push(new ConcreteTexture(null, 16, 16, false, false));
+                frames.push(new ConcreteTexture(null, format, 16, 16, false, false));
             
             return frames;
         }

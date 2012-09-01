@@ -7,18 +7,17 @@ package brnr.creation.form
 	{
 		public function Horse()
 		{
-			trace("horse has been created");
+			
 		}
 		
 		override public function setUp():void
 		{
 			this.textureLocation	=  	"media/icon.png";
-			this.atlasLocation 	=	"media/icon.xml";
+			this.atlasLocation 		=	"media/icon.xml";
 		}
 		
 		override public function appear():void
 		{
-			trace("make it rain ");
 			this.addToon( BrnrToon.IDLE, 40, true );
 			this.toon = BrnrToon.IDLE;
 			super.appear();
