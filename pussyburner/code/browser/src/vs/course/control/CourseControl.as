@@ -35,6 +35,29 @@ package vs.course.control
 			if ( core != null ) this.core = core;
 		}
 		
+		public function execute ():void
+		{
+			var max:int = this.core.creationList.length;
+			for ( var i:int = 0; i < max; i++ )
+			{
+				var creation:Creation = this.core.creationList[ i ];
+				creation.breath();
+			}
+		}
+		
+		public function updateDepths ():void
+		{
+			this.core.creationList.sortOn("y", Array.NUMERIC );
+		}
+		
+		public function updateFocus ( x:Number, y:Number ):void
+		{
+			this.core.focus.x = x;
+			this.core.focus.y = y;
+		}
+		
+		public function get creationAmount ():int { return this.core.creationList.length }
+		
 		public function environment ( src:String = null ):void
 		{
 			loadEnvironment( src );	
@@ -50,12 +73,21 @@ package vs.course.control
 			loadLandscapeLayer( src, landscape.id );
 		}
 		
-		public function creation ( type:String, x:Number = 0, y:Number = 0 ):void
+		public function creation ( type:String, x:Number = 0, y:Number = 0 ):Creation
 		{
 			var creation:Creation = updateCreation ( type );
 			creation.x = x;
 			creation.y = y;
-			loadAtlus( creation.atlasLocation, creation.id ); 
+			if( this.core.atlusTexture[ creation.textureLocation ] == null ) 
+			{
+				loadAtlus( creation.atlasLocation, creation.id ); 
+				return creation;
+			}
+			
+			creation.atlas = this.core.atlusTexture[ creation.textureLocation ]
+			addCreation ( creation );
+			
+			return creation;
 		}
 		
 		public function updateLandscape ():LandscapeLayer
@@ -112,7 +144,7 @@ package vs.course.control
 		
 		private function updateBitmap ( id:String, bitmap:Bitmap ):BitmapData
 		{
-			var bitmapData:BitmapData	= new BitmapData( bitmap.width, bitmap.height );
+			var bitmapData:BitmapData	= new BitmapData( bitmap.width, bitmap.height , true, 0xFFFFFF );
 			bitmapData.draw( bitmap );
 			return updateBitmapData ( id, bitmapData );
 		}
@@ -252,7 +284,7 @@ package vs.course.control
 		
 		private function addCreation ( creation:Creation ):void
 		{
-			this.core.cosmos.addCreation( creation );
+			this.core.self.addCreation( creation );
 		}
 		
 		private function dynamicCreation ( type:String ):Creation
@@ -290,13 +322,13 @@ package vs.course.control
 			var layer:LandscapeLayer = this.core.landscape[ loader.name ]; 
 			layer.updateTextures(  updateTexture( loader.url ) , updateTexture( loader.url )  );
 			
-			this.core.cosmos.addLandscape( layer );
+			this.core.self.addLandscape( layer );
 		}
 		
 		private function addEnvironment( display:Environment ):void
 		{
-			if ( core.cosmos == null ) return;
-			core.cosmos.addEnvironment( display );
+			if ( core.self == null ) return;
+			core.self.addEnvironment( display );
 		}
 		
 		private function textureFromBitmapData( data:BitmapData ):Texture 

@@ -2,9 +2,7 @@ package vs
 {
 	import starling.core.Starling;
 	import starling.events.Event;
-	import starling.textures.Texture;
 	
-	import vs.course.cause.CauseEnvironment;
 	import vs.course.content.CourseContent;
 	import vs.course.content.environment.Environment;
 	import vs.course.content.landscape.Landscape;
@@ -24,8 +22,22 @@ package vs
 		
 		public function Course(){}
 		
+		public function execute ( ):void
+		{
+			if ( this.landscapeDisplay != null ) this.landscapeDisplay.action();
+			this.control.execute();
+			
+			this.control.updateDepths();
+			this.content.execute();
+		}
+		
+		public function updateFocus ( x:Number, y:Number ):void { this.control.updateFocus( x, y );}
+		
+		public function get creationAmount ():int { return this.control.creationAmount }
+		
 		public function set creationLocation ( location:String ):void  { control.updateCreationLocation( location )  }
 		
+		public function creation	( src:String, x:Number, y:Number ):Creation { return  this.control.creation( src, x, y ) }
 		public function environment ( src:String ):void { this.control.environment( src )  	};
 		public function landscape 	( src:String, parallax:Number = 1,  y:Number = 0, layer:int = 0 ):void { this.control.landscape( src, parallax, y, layer ) 	};
 		
@@ -35,7 +47,7 @@ package vs
 			if ( control 	!= null ) 	this.control = control;
 			if ( content 	!= null ) 	this.content = content;
 			
-			if ( this.core != null ) this.core.cosmos = this;
+			if ( this.core != null ) this.core.self = this;
 			
 			appear();
 		}
@@ -63,7 +75,6 @@ package vs
 		
 		public function addCreation ( creation:Creation ):void
 		{
-			
 			creation.appear();
 			this.content.addChild( creation.content );
 			Starling.juggler.add( creation.content );
@@ -71,25 +82,21 @@ package vs
 		
 		public function addLandscape ( layer:LandscapeLayer ):void
 		{
-			if ( landscapeDisplay == null ) 
-			{
-				landscapeDisplay = new Landscape;
-				landscapeDisplay.awake( this.core, this.control );
-				content.addChild( landscapeDisplay );
-			}
+			//if ( landscapeDisplay == null ) 
+			//{
+			//	landscapeDisplay = new Landscape;
+			//	landscapeDisplay.awake( this.core, this.control );
+			//	content.addChild( landscapeDisplay );
+			//}
 				
-			landscapeDisplay.addLayer( layer );
+			//landscapeDisplay.addLayer( layer );
 		}
 		
 		public function addEnvironment ( display:Environment ):void
 		{
-			environmentDisplay = display;
-			content.addChildAt( environmentDisplay, 0 );
-		}
-		
-		private function execute ( event:Event ):void
-		{
-			if ( this.landscapeDisplay != null ) this.landscapeDisplay.action();
+			trace("adding an environment " + display );
+			//environmentDisplay = display;
+			//content.addChildAt( environmentDisplay, 0 );
 		}
 		
 	}

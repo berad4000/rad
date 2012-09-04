@@ -1,11 +1,8 @@
 package vs.course.content
 {
 	import starling.display.Sprite;
-	import starling.events.Event;
 	
-	import vs.course.cause.CauseEnvironment;
-	import vs.course.content.environment.Environment;
-	import vs.course.content.landscape.Landscape;
+	import vs.Creation;
 	import vs.course.control.CourseControl;
 	import vs.course.core.CourseCore;
 	
@@ -32,7 +29,17 @@ package vs.course.content
 		
 		public function removeCauses():void {}
 		
-		public function execute (  ):void	{}
+		public function execute (  ):void	
+		{
+			var max:int = this.core.creationList.length;
+			
+			for ( var i:int = 0; i <  max; i++ )
+			{
+				var creation:Creation = this.core.creationList[ i ]; 
+				this.addChildAt( creation.content, i );
+			}
+		}
+		
 		public function action ():void						{}
 	}
 }

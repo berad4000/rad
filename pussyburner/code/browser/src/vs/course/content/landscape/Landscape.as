@@ -1,21 +1,9 @@
 package vs.course.content.landscape
 {
-	import burnt.rad.burn.world.Assets;
 	
 	import com.greensock.TweenMax;
-	
-	import flashx.textLayout.formats.BackgroundColor;
-	
-	import starling.display.BlendMode;
-	import starling.display.Image;
-	import starling.display.Sprite;
-	import starling.events.Event;
-	import starling.textures.Texture;
-	import starling.textures.TextureSmoothing;
-	
 	import vs.course.content.CourseContent;
-	import vs.course.control.CourseControl;
-	import vs.course.core.CourseCore;
+	
 	
 	public class Landscape extends CourseContent
 	{

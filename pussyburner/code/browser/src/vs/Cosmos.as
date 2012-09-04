@@ -1,5 +1,8 @@
 package vs
 {
+	import starling.core.Starling;
+	import starling.events.Event;
+	
 	import vs.cosmos.CosmosContent;
 	import vs.cosmos.CosmosControl;
 	import vs.cosmos.CosmosCore;
@@ -14,6 +17,25 @@ package vs
 		public function Cosmos()
 		{
 		}
+		
+		public function start ():void
+		{
+			this.content.addEventListener( Event.ENTER_FRAME, go );	
+			Starling.current.start();
+		}
+		
+		public function stop():void
+		{
+			this.content.removeEventListener( Event.ENTER_FRAME, go );
+			Starling.current.stop();
+		}
+		
+		public function go ( event:Event):void
+		{
+			this.control.execute();
+		}
+		
+		public function get course ():Course { return this.core.course }
 		
 		public function addCourse ( course:Course ):void
 		{

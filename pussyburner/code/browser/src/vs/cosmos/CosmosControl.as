@@ -13,6 +13,11 @@ package vs.cosmos
 			this.core = core;
 		}
 		
+		public function execute():void
+		{
+			this.core.course.execute()
+		}
+		
 		public function course ( type:String ):void
 		{
 			var newCourse:Course = dynamicCourse ( type );

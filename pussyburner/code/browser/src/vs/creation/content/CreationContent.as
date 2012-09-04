@@ -1,8 +1,9 @@
 package vs.creation.content
 {
-	import starling.core.Starling;
+	
 	import starling.display.ExtendedMovieClip;
 	
+	import vs.Creation;
 	import vs.creation.control.CreationControl;
 	import vs.creation.core.CreationCore;
 	
@@ -14,6 +15,8 @@ package vs.creation.content
 		public function CreationContent()
 		{
 		}
+		
+		public function get creation():Creation { return this.core.self } 
 		
 		public function awake( core:CreationCore, control:CreationControl ):void
 		{
@@ -27,13 +30,18 @@ package vs.creation.content
 		
 		public function appear():void 
 		{
-			this.x = this.core.x;
-			this.y = this.core.y;
+			//this.x = this.core.x;
+			//this.y = this.core.y;
 		}
 		
 		public function removeCauses():void {}
 		
 		//public function execute ( event:Event = null ):void	{}
 		public function action ():void						{}
+		public function move ():void
+		{
+			this.x = this.core.x;
+			this.y = this.core.y;
+		}
 	}
 }

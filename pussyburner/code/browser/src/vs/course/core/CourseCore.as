@@ -1,22 +1,24 @@
 package vs.course.core
 {
 	import flash.display.BitmapData;
+	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
 	import vs.Course;
-	import vs.Creation;
 	import vs.course.content.environment.Environment;
 	import vs.course.content.landscape.LandscapeLayer;
 	
 	public class CourseCore
 	{
-		public var cosmos:Course;
+		public var self:Course;
 		
 		public var height:Number = 0;
 		public var width:Number  = 1280;
+		
+		public var focus:Point = new Point;
 		
 		public var scaleFactor:Number = 1;
 		
@@ -33,7 +35,7 @@ package vs.course.core
 		public var landscapeList:Vector.<LandscapeLayer> 	= new Vector.<LandscapeLayer>; 
 		 
 		public var creations:Dictionary 	= new Dictionary( true );
-		public var creationList:Vector.<Creation> 			= new Vector.<Creation>;  
+		public var creationList:Array = new Array;
 		
 		public var atlus:Dictionary 		= new Dictionary( true );
 		public var atlusList:Vector.<XML> 			= new Vector.<XML>;

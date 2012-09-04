@@ -1,6 +1,5 @@
 package vs.creation.control
 {
-	import flash.events.EventDispatcher;
 	
 	import starling.textures.TextureAtlas;
 	
@@ -25,6 +24,13 @@ package vs.creation.control
 			this.stat 		= new StatControl( this.core	);
 			this.command 	= new CommandControl( this.core );
 			this.mode 		= new ModeControl( this.core 	);
+		}
+		
+		public function updatePosition ( x:Number, y:Number ):void
+		{
+			trace("what are you updating the postion up too " + x +" :: " + y );
+			this.core.x = x;
+			this.core.y = y;
 		}
 		
 		public function updateAtlus				( atlus:TextureAtlas):void	

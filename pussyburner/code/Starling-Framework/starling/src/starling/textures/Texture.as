@@ -14,7 +14,7 @@ package starling.textures
     import flash.display.BitmapData;
     import flash.display3D.Context3D;
     import flash.display3D.Context3DTextureFormat;
-    import flash.display3D.textures.Texture;
+    //import flash.display3D.textures.Texture;
     import flash.display3D.textures.TextureBase;
     import flash.geom.Matrix;
     import flash.geom.Point;
@@ -110,7 +110,7 @@ package starling.textures
          *  Beware: you must not dispose 'data' if Starling should handle a lost device context. */
         public static function fromBitmap(data:Bitmap, generateMipMaps:Boolean=true,
                                           optimizeForRenderTexture:Boolean=false,
-                                          scale:Number=1):Texture
+                                          scale:Number=1):Texture 
         {
             return fromBitmapData(data.bitmapData, generateMipMaps, optimizeForRenderTexture, scale);
         }

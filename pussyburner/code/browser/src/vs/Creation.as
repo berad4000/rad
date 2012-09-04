@@ -18,6 +18,11 @@ package vs
 			
 		}
 		
+		public function breath():void  
+		{
+			this.content.move();
+		}
+		
 		public function awake ( core:CreationCore = null, control:CreationControl = null, content:CreationContent = null ):void
 		{
 			if ( core 		!= null ) 	this.core = core;
@@ -27,18 +32,30 @@ package vs
 			setUp();
 		}
 		
+		public function updatePostion ( x:Number, y:Number ):void
+		{
+			this.control.updatePosition( x, y );
+		}
+		
 		//BurnToon.IDLE, atlas.getTextures("Horse" ), 14, true
 		//public function addToon ( id:String, fps:Number, loop:Boolean ):void
 		//{
 		//}
 		
+		public function move ():void
+		{
+			
+		}
+		
 		public function set toon ( value:String ):void { this.content.play( value ) };
 		
 		public function addToon ( id:String, fps:Number, loop:Boolean ):void   
 		{
+			trace("what does the toon look like " + id );
+			
 			if ( this.atlas == null ) return; 
 		
-			content.addAnimation( id, this.core.atlas.getTextures( "LittleAdd"  ), fps, loop  );
+			content.addAnimation( id, this.core.atlas.getTextures( ), fps, loop  );
 		}
 		
 		public function get id ():String	{ return this.core.id }
@@ -58,7 +75,8 @@ package vs
 		public function set atlasLocation ( value:String ):void 	{ this.control.updateAtlasLocation( value )  }
 		public function get atlasLocation ():String					{ return this.core.atlasLocation }
 		
-		public function setUp():void 	{};
+		public function setUp():void 	{}
 		public function appear():void 	{ this.content.appear() }
+		
 	}
 }

@@ -12,13 +12,13 @@ package brnr.creation.form
 		
 		override public function setUp():void
 		{
-			this.textureLocation	=  	"media/icon.png";
-			this.atlasLocation 		=	"media/icon.xml";
+			this.textureLocation	=  	"media/horseToon.png";
+			this.atlasLocation 		=	"media/horseToon.xml";
 		}
 		
 		override public function appear():void
 		{
-			this.addToon( BrnrToon.IDLE, 40, true );
+			this.addToon( BrnrToon.IDLE, 24, true );
 			this.toon = BrnrToon.IDLE;
 			super.appear();
 		}

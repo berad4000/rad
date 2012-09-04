@@ -1,52 +1,43 @@
 package
 {
-	import com.greensock.TweenLite;
 	import com.greensock.TweenMax;
-	import com.greensock.easing.Elastic;
 	
-	import flash.desktop.NativeApplication;
-	import flash.desktop.NativeProcess;
-	import flash.desktop.SystemIdleMode;
-	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
-	import flash.display.StageQuality;
 	import flash.display.StageScaleMode;
+	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.geom.Rectangle;
-	import flash.system.Capabilities;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
-	import rad.rad.burn.Miniverse;
-	import rad.rad.burn.world.objects.BurnStat;
-	import rad.rad.burn.world.souls.types.Babe;
-	import rad.vs.soul.Soul;
+	import brnr.cosmos.form.PSSYLVR;
+	import brnr.cosmos.foundation.BrnrCosmos;
+	import brnr.cosmos.foundation.elements.BrnrCosmosContent;
 	
 	import starling.core.Starling;
 	import starling.events.Event;
 	
-	//[SWF(width='1000',height='548',backgroundColor='#FFFFFF',frameRate='60')]
-	[SWF(width="1280", height="800", frameRate="30", backgroundColor="#000000")]
+	[SWF(width='1280',height='720',backgroundColor='#FFFFFF',frameRate='60')]
+	//[SWF(width="1280", height="800", frameRate="60", backgroundColor="#000000")]
 	public class Droid extends Sprite
 	{
 		private var mStarling:Starling;
 		
-		protected var babe:Soul;
+		protected var cosmos:BrnrCosmos;
+		protected var content:BrnrCosmosContent;
 		
-		private var _debugDisplay:TextField;
+		//protected var timer:Timer = new Timer( 65000 );
 		
-		private var _addUIcount:Number 		= 200;
-		private var _currentCount:Number 	= 0;
+		protected var text:TextField = new TextField;
 		
-		//needs object pooling
-		protected var mini:Miniverse;
-		
-		protected var wetBar:WetBar = new WetBar;
-		protected var climaxBar:ClimaxBar = new ClimaxBar;
+		protected var pause:Boolean = false;
 		
 		public function Droid()
 		{
+			cosmos = new PSSYLVR;
+			
 			TweenMax.to({}, 0.001, {}); 
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -60,96 +51,116 @@ package
 			viewPort.height = 800;
 			viewPort.width 	= 1280;
 			
-			mStarling = new Starling( Miniverse, stage, viewPort);
+			mStarling = new Starling( BrnrCosmosContent, stage, viewPort, null, "auto", "baseline" );
 			mStarling.simulateMultitouch  = false;
 			mStarling.enableErrorChecking = false;
 			mStarling.start();
 			
 			mStarling.addEventListener( Event.ROOT_CREATED, rootCreated );
-			//mStarling.showStats = true;
+			mStarling.showStats = true;
+			//NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
 			
-			NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE; 
-			
-			this.addChild( wetBar );
-			wetBar.x = 14;
-			wetBar.y = -40;
-			
-			this.addChild( climaxBar );
-			climaxBar.x = 1000;
-			climaxBar.y = 235;
-			
-			climaxBar.visible = false;
+			this.addChild( text );
+			text.autoSize = TextFieldAutoSize.LEFT;
 		}
 		
 		private function rootCreated ( event:Event ):void
-		{
-			if ( Starling.current.stage.getChildAt( 0 ) is Miniverse ) mini = Starling.current.stage.getChildAt( 0 ) as Miniverse;
+		{1
+			if ( Starling.current.stage.getChildAt( 0 ) is BrnrCosmosContent ) content = Starling.current.stage.getChildAt( 0 ) as BrnrCosmosContent;
 			
-			if ( mini == null ) 			return;
-			if ( mini.world == null ) 		return;
-			if ( mini.world.model == null ) return;
+			if ( content == null ) return;
 			
-			mini.world.view.addEventListener( Event.TRIGGERED, 	start );
-			mini.world.view.addEventListener( Event.COMPLETE, 	stop );
+			this.cosmos.awake( null, null, content );
+			this.cosmos.start();
 			
-			showUI();
 			Starling.current.stage.addEventListener( Event.ENTER_FRAME, execute );
+			
+			//this.stage.addEventListener( MouseEvent.MOUSE_UP, mouseUp );
+			
+			//timer.addEventListener( TimerEvent.TIMER, timerGO );
+			//timer.start();
+			
+			this.addChild( text );
+			//text.y = 160;
+			text.textColor = 0xFFFFFF;
+			
+			var format:TextFormat = new TextFormat;
+			format.bold = true
+			
+			text.defaultTextFormat = format;
+			
+		}
+		
+		private function timerGO ( event:TimerEvent ):void
+		{
+			//this.cosmos.tryAgain();  ..FOR MUYBRIDGE
+		}
+		
+		private function mouseUp ( event:MouseEvent ):void
+		{
+			trace("you are mousing up");
+			if ( pause )
+			{
+				pause = false;
+				this.cosmos.stop();
+				return
+			}
+			
+			if ( !pause )
+			{
+				pause = true;
+				this.cosmos.start();
+			}
+			
+			//trace("mousing up mousing up mousing up " );
+			//this.cosmos.tryAgain(); for muybrige
 		}
 		
 		private function start ( event:Event ):void
 		{
-			if ( mini == null ) 			return;
-			if ( mini.world == null ) 		return;
-			if ( mini.world.model == null ) return;
-			if ( mini.world.view.babe != null ) babe = mini.world.view.babe;
 			
-			
-			trace("start");
-			TweenMax.to( wetBar, 2,  { y: 10, delay:4, ease:Elastic.easeInOut }); 
 		}
 		
 		private function stop ( event:Event ):void
 		{
-			TweenMax.to( wetBar, 1,  { y: -40, delay:2, ease:Elastic.easeInOut });
+			
 		}
 		
 		private function execute ( event:Event ):void
 		{
-			if ( babe == null ) return;
-			var percentCore:Number = babe.statValue( BurnStat.CORE ) / babe.statMax(  BurnStat.CORE );
-			if ( wetBar.wetBarMask != null ) wetBar.wetBarMask.scaleX = percentCore;
 			
-			var percentClimax:Number = babe.statValue( BurnStat.FRICTION ) / babe.statMax(  BurnStat.FRICTION );
-			if ( climaxBar.climaxMask != null ) climaxBar.climaxMask.scaleX = percentClimax;
-			
-			if ( babe.statValue( BurnStat.FRICTION ) > 0 ) 	climaxBar.visible = false;
-			if ( babe.statValue( BurnStat.FRICTION ) <= 0 ) climaxBar.visible = false;
-			
-			//_debugDisplay.text = " Core:" + babe.statValue( BurnStat.CORE ).toFixed( 2 ) ;
-			//_debugDisplay.appendText( " Excite: " 	+ babe.statValue( BurnStat.EXCITE	).toFixed( 2 ) ) ;
-			//_debugDisplay.appendText( " Friction: " + babe.statValue( BurnStat.FRICTION ).toFixed( 2 ) ) ;
-			//_debugDisplay.appendText( " Climax: " 	+ babe.statValue( BurnStat.CLIMAX 	).toFixed( 2 ) ) ;
 		}
 		
-		private function showUI (  ):void
+		private function muybridge ( event:Event ):void
 		{
-			_debugDisplay = new TextField;
-			this.addChild( _debugDisplay );
+			text.text = this.cosmos.course.creationAmount + " Horses ";
 			
-			var fmt:TextFormat = new TextFormat(); 
-			fmt.color = 0xFFFFFF; 
-			fmt.font = "Arial";
-			fmt.bold = true;
-			fmt.size = 9;
 			
-			_debugDisplay.defaultTextFormat = fmt;
-			_debugDisplay.autoSize = TextFieldAutoSize.LEFT;  
-			_debugDisplay.text = "Data is no good";
+			var value:Number = 0;
+			value =  .05;
+			//if ( this.cosmos.course.creationAmount <= 700 )  								1					value =  .05;
+			//if ( this.cosmos.course.creationAmount > 700 )   	value =  .07;
+			//if ( this.cosmos.course.creationAmount >= 1500 )  													value =  .15;
+			var scale:Number = 1 + this.cosmos.course.creationAmount * value;
+			trace(scale);
+			text.scaleX = text.scaleY = scale;
 			
-			_debugDisplay.x -= 2;
-			_debugDisplay.y -= 2;
 			
-			_debugDisplay.alpha = .3;
+			//if ( this.cosmos.course.creationAmount > 1000 ) text.y -= .55;
+			
+			//if (  text.y < 0 ) text.y = 0;
+			
+			//var xPos:Number = 0;
+			////if ( this.cosmos.course.creationAmount < 300 ) xPos = .3;
+			//if ( ( this.cosmos.course.creationAmount >= 300 ) && ( this.cosmos.course.creationAmount <= 500 ) ) xPos = 1;
+			///if ( ( this.cosmos.course.creationAmount >= 500 ) && ( this.cosmos.course.creationAmount <= 1000 ) ) xPos = 2;
+			//if ( ( this.cosmos.course.creationAmount >= 1000 ) && ( this.cosmos.course.creationAmount <= 1500 ) ) xPos = 2.5;
+			//if ( ( this.cosmos.course.creationAmount >= 1500 ) && ( this.cosmos.course.creationAmount <= 2000 ) ) xPos = 6;
+			//if ( ( this.cosmos.course.creationAmount >= 2000 ) && ( this.cosmos.course.creationAmount <= 3000 ) ) xPos = 8;
+			
+			//text.x -=  xPos;
+			
 		}
+		
 	}
 }
