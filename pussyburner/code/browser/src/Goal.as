@@ -7,9 +7,9 @@ package
 	import flash.display.StageScaleMode;
 	import flash.geom.Rectangle;
 	
-	import brnr.cosmos.form.LVR;
-	import brnr.cosmos.foundation.BrnrCosmos;
-	import brnr.cosmos.foundation.elements.BrnrCosmosContent;
+	import xo.cosmos.form.X0X0;
+	import xo.cosmos.foundation.X0Cosmos;
+	import xo.cosmos.foundation.elements.X0CosmosContent;
 	
 	import starling.core.Starling;
 	import starling.events.Event;
@@ -19,12 +19,12 @@ package
 		
 		private var mStarling:Starling;
 		
-		protected var cosmos:BrnrCosmos;
-		protected var content:BrnrCosmosContent;
+		protected var cosmos:X0Cosmos;
+		protected var content:X0CosmosContent;
 		
 		public function Goal( stage:Stage )
 		{
-			cosmos = new LVR;
+			cosmos = new X0X0;
 			
 			TweenMax.to({}, 0.001, {}); 
 			
@@ -39,7 +39,7 @@ package
 			viewPort.height = 800;
 			viewPort.width 	= 1280;
 			
-			mStarling = new Starling( BrnrCosmosContent, stage, viewPort, null, "auto", "baseline" );
+			mStarling = new Starling( X0CosmosContent, stage, viewPort, null, "auto", "baseline" );
 			mStarling.simulateMultitouch  = false;
 			mStarling.enableErrorChecking = false;
 			mStarling.start();
@@ -50,7 +50,7 @@ package
 		
 		private function rootCreated ( event:Event ):void
 		{
-			if ( Starling.current.stage.getChildAt( 0 ) is BrnrCosmosContent ) content = Starling.current.stage.getChildAt( 0 ) as BrnrCosmosContent;
+			if ( Starling.current.stage.getChildAt( 0 ) is X0CosmosContent ) content = Starling.current.stage.getChildAt( 0 ) as X0CosmosContent;
 			
 			if ( content == null ) return;
 			
