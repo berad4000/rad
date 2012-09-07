@@ -24,14 +24,14 @@ package burnt.rad.burn.world
 	import burnt.rad.burn.world.souls.types.Focus;
 	import burnt.rad.burn.world.souls.types.Horse;
 	import burnt.rad.burn.world.souls.types.PussyShot;
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	import vs.creation.command.FocalPointUpdateX;
 	import vs.creation.command.FocalPointUpdateY;
 	import vs.creation.command.ModeUpdate;
 	import burnt.z-unused.soul.events.CreationEvent;
 	import burnt.z-unused.soul.content.StarlingSoulView;
-	import vs.course.control.CourseControl;
-	import vs.course.core.CourseCore;
+	import vs.course.CourseControl;
+	import vs.course.CourseCore;
 	import vs.course.content.landscape.Landscape;
 	import vs.course.content.landscape.LandscapeLayer;
 	import vs.starling.StarlingWorld;

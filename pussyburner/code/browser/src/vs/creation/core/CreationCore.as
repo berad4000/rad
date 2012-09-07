@@ -14,11 +14,14 @@ package vs.creation.core
 
 	public class CreationCore
 	{
-		public var cosmos:Course;
+		public var self:Creation;
+		
+		public var course:Course;
+		public var courseIndex:int = 0;
 		
 		public var id:String
 		public var name:String;
-		public var self:Creation;
+		public var type:String;
 		
 		public var x:Number = 0;
 		public var y:Number = 0;
@@ -34,6 +37,8 @@ package vs.creation.core
 		public var atlasLocation:String;
 		
 		public var atlas:TextureAtlas;
+		
+		public var parent:Creation;
 		
 		public function CreationCore( i:Creation = null )
 		{

@@ -43,24 +43,24 @@ package vs.creation.control.elements
 			stat.value = stat.max;
 		}
 		
-		public function batchStatValues ( group:Array ):void
-		{
-			var max:Number = group.length;
+		//public function batchStatValues ( group:Array ):void
+		//{
+		//	var max:Number = group.length;
 			
-			for ( var i:Number = 0; i < max; i++ )
-			{
-				var item:StatValues = group[ i ]; 
-				addStat( item );
-			}
-		}
+		//	for ( var i:Number = 0; i < max; i++ )
+		//	{
+		//		var item:StatValues = group[ i ]; 
+		//		addStat( item );
+		//	}
+		//}
 		
-		public function addStat ( item:StatValues ):void 
+		public function addStat ( id:String, value:Number,  min:Number,  max:Number, type:String ):void 
 		{
-			var stat:Stat = this.fetchStat( item.id, item.type );
-			stat.id 	= item.id.toUpperCase();
-			stat.max 	= item.max;
-			stat.min	= item.min;
-			stat.value 	= item.value;
+			var stat:Stat = this.fetchStat( id, type );
+			stat.id 	= id.toUpperCase();
+			stat.max 	= max;
+			stat.min	= min;
+			stat.value 	= value;
 		}
 		
 		public function fetchStatValue ( id:String ):Number

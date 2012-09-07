@@ -3,12 +3,12 @@ package vs
 	import starling.core.Starling;
 	import starling.events.Event;
 	
-	import vs.course.content.CourseContent;
+	import vs.course.CourseContent;
+	import vs.course.CourseControl;
+	import vs.course.CourseCore;
 	import vs.course.content.environment.Environment;
 	import vs.course.content.landscape.Landscape;
 	import vs.course.content.landscape.LandscapeLayer;
-	import vs.course.control.CourseControl;
-	import vs.course.core.CourseCore;
 
 	public class Course
 	{
@@ -37,7 +37,7 @@ package vs
 		
 		public function set creationLocation ( location:String ):void  { control.updateCreationLocation( location )  }
 		
-		public function creation	( src:String, x:Number, y:Number ):Creation { return  this.control.creation( src, x, y ) }
+		public function creation	( src:String, x:Number = 0, y:Number = 0, exist:Creation = null ):Creation { return  this.control.creation( src, x, y, exist ) }
 		public function environment ( src:String ):void { this.control.environment( src )  	};
 		public function landscape 	( src:String, parallax:Number = 1,  y:Number = 0, layer:int = 0 ):void { this.control.landscape( src, parallax, y, layer ) 	};
 		
@@ -54,7 +54,7 @@ package vs
 		
 		public function destroy():void
 		{
-			trace("destroying the course   ----- ");
+			
 			this.control.destroy();
 			if ( this.content.contains( environmentDisplay ) ) this.content.removeChild( environmentDisplay );
 			content 	= null;
@@ -75,9 +75,18 @@ package vs
 		
 		public function addCreation ( creation:Creation ):void
 		{
-			creation.appear();
-			this.content.addChild( creation.content );
+			
+			if ( creation.parent == null ) this.content.addChild( creation.content );
+			//if ( creation.parent != null ) creation.parent.content.addChild( creation.content );
+			
 			Starling.juggler.add( creation.content );
+			creation.appear();
+		}
+		
+		public function removeCreation ( creation:Creation ):void
+		{
+			Starling.juggler.remove( creation.content );
+			creation.dispose();
 		}
 		
 		public function addLandscape ( layer:LandscapeLayer ):void
@@ -94,7 +103,7 @@ package vs
 		
 		public function addEnvironment ( display:Environment ):void
 		{
-			trace("adding an environment " + display );
+			
 			//environmentDisplay = display;
 			//content.addChildAt( environmentDisplay, 0 );
 		}

@@ -2,7 +2,7 @@ package vs.course.content.landscape
 {
 	
 	import com.greensock.TweenMax;
-	import vs.course.content.CourseContent;
+	import vs.course.CourseContent;
 	
 	
 	public class Landscape extends CourseContent

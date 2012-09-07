@@ -1,6 +1,6 @@
 package burnt.z-unused.soul
 {
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	
 	public interface CreationContent
 	{

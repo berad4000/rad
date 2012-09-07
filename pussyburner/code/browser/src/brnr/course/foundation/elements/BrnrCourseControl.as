@@ -1,7 +1,7 @@
 package brnr.course.foundation.elements
 {
-	import vs.course.control.CourseControl;
-	import vs.course.core.CourseCore;
+	import vs.course.CourseControl;
+	import vs.course.CourseCore;
 
 	public class BrnrCourseControl extends CourseControl
 	{

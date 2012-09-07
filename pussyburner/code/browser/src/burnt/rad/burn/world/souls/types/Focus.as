@@ -9,7 +9,7 @@ package burnt.rad.burn.world.souls.types
 	import burnt.rad.burn.world.objects.BurnSoul;
 	import burnt.rad.burn.world.objects.BurnStat;
 	import burnt.rad.burn.world.objects.BrnrToon;
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	import burnt.z-unused.soul.CreationControl;
 	import burnt.z-unused.soul.CreationFactory;
 	import burnt.z-unused.soul.CreationCore;

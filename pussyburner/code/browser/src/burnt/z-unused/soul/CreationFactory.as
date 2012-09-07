@@ -1,7 +1,7 @@
 package burnt.z-unused.soul
 {
 	import flash.utils.Dictionary;
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 
 	public class CreationFactory
 	{

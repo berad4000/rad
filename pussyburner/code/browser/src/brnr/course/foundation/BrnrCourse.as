@@ -4,18 +4,19 @@ package brnr.course.foundation
 	import brnr.course.foundation.elements.BrnrCourseContent;
 	import brnr.course.foundation.elements.BrnrCourseControl;
 	import brnr.course.foundation.elements.BrnrCourseCore;
-	import brnr.creation.form.Horse;
+	import brnr.creation.form.z.HorseOLD;
+	import brnr.creation.foundation.objects.BrnrCreationType;
 	
 	import starling.display.Sprite;
 	
 	import vs.Course;
 	import vs.Creation;
-	import vs.course.content.CourseContent;
+	import vs.course.CourseContent;
+	import vs.course.CourseControl;
+	import vs.course.CourseCore;
 	import vs.course.content.environment.Environment;
 	import vs.course.content.landscape.Landscape;
 	import vs.course.content.landscape.LandscapeLayer;
-	import vs.course.control.CourseControl;
-	import vs.course.core.CourseCore;
 	
 
 	public class BrnrCourse extends Course
@@ -25,7 +26,7 @@ package brnr.course.foundation
 		protected var brnrControl:BrnrCourseControl;
 		protected var brnrContent:BrnrCourseContent;
 		
-		protected var horse:Horse; //needs to go into a library
+		protected var horse:HorseOLD; //needs to go into a library
 		
 		public function BrnrCourse()
 		{
@@ -54,12 +55,25 @@ package brnr.course.foundation
 		override public function addCreation ( creation:Creation ):void
 		{
 			super.addCreation( creation );
-			this.brnrContent.creationLayer.addChild( creation.content );
+			if ( creation.parent == null )  				this.brnrContent.creationLayer.addChild( creation.content 	);
+			if ( creation.parent != null )					creation.parent.content.addChild( creation.content 			);
+			if ( creation.type == BrnrCreationType.FOCUS ) 	this.brnrContent.uiLayer.addChild( creation.content 		);
+				
 		}
 		
+		override public function removeCreation ( creation:Creation ):void
+		{
+		
+			if ( creation.parent == null )  				this.brnrContent.creationLayer.removeChild( creation.content 	);
+			if ( creation.parent != null )					creation.parent.content.removeChild( creation.content 			);
+			if ( creation.type == BrnrCreationType.FOCUS ) 	this.brnrContent.uiLayer.removeChild( creation.content 			);
+				
+			super.removeCreation( creation );
+		}
+	
 		override public function awake( core:CourseCore=null, control:CourseControl=null, content:CourseContent=null ):void
 		{
-			this.brnrCore  							= new BrnrCourseCore;
+			this.brnrCore  							= new BrnrCourseCore( this );
 			this.brnrControl 						= new BrnrCourseControl(  this.brnrCore );
 			if ( content != null ) this.brnrContent = content as BrnrCourseContent;
 			if ( content == null ) this.brnrContent = new BrnrCourseContent;

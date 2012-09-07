@@ -1,11 +1,13 @@
 package brnr.course.foundation.elements
 {
+	import brnr.creation.foundation.objects.BrnrCreationType;
+	
 	import starling.display.Sprite;
 	
 	import vs.Creation;
-	import vs.course.content.CourseContent;
-	import vs.course.control.CourseControl;
-	import vs.course.core.CourseCore;
+	import vs.course.CourseContent;
+	import vs.course.CourseControl;
+	import vs.course.CourseCore;
 
 	public class BrnrCourseContent extends CourseContent
 	{
@@ -31,16 +33,23 @@ package brnr.course.foundation.elements
 			
 			creationLayer = new Sprite;
 			this.addChildAt( creationLayer, 2 );
+			
+			uiLayer = new Sprite;
+			this.addChildAt( uiLayer, 3 );
 		}
 		
 		override public function execute (  ):void	
 		{
 			var max:int = this.core.creationList.length;
+			var index:int  = 0;
 			
 			for ( var i:int = 0; i <  max; i++ )
 			{
-				var creation:Creation = this.core.creationList[ i ]; 
-				creationLayer.addChildAt( creation.content, i );
+				var creation:Creation = this.core.creationList[ i ];
+				if ( creation.parent != null ) continue;
+				if ( creation.type == BrnrCreationType.FOCUS ) continue;
+				creationLayer.addChildAt( creation.content, index );
+				index += 1
 			}
 		}
 		

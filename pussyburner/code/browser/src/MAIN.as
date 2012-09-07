@@ -12,7 +12,7 @@ package
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	
-	import brnr.cosmos.form.PSSYLVR;
+	import brnr.cosmos.form.LVR;
 	import brnr.cosmos.foundation.BrnrCosmos;
 	import brnr.cosmos.foundation.elements.BrnrCosmosContent;
 	
@@ -36,7 +36,7 @@ package
 	
 		public function MAIN()
 		{
-			cosmos = new PSSYLVR;
+			cosmos = new LVR;
 			
 			TweenMax.to({}, 0.001, {}); 
 			

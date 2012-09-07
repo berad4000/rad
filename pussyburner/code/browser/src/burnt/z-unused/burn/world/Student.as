@@ -16,7 +16,7 @@ package burnt.z-unused.burn.world
 	import burnt.rad.burn.world.souls.types.Babe;
 	import burnt.rad.burn.ui.TitleScreen;
 	import burnt.z-unused.vs.avatar.toons.Toon;
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	import burnt.z-unused.soul.CreationFactory;
 	import vs.creation.command.FocalPointUpdateX;
 	import vs.creation.command.FocalPointUpdateY;

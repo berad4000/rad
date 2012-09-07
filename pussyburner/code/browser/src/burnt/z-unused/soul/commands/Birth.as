@@ -3,7 +3,7 @@ package burnt.z-unused.soul.commands
 	
 	import flash.events.Event;
 	
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	import burnt.z-unused.soul.CreationCommand;
 
 	public class Birth extends CreationCommand

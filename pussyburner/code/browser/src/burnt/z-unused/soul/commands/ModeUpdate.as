@@ -4,7 +4,7 @@ package burnt.z-unused.soul.commands
 	import flash.events.Event;
 	
 	import burnt.z-unused.soul.CreationCommand;
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 
 	public class ModeUpdate extends CreationCommand
 	{

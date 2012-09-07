@@ -2,7 +2,7 @@ package burnt.z-unused.soul.events
 {
 	
 	import flash.events.Event;
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	
 	public class CreationEvent extends Event {
 		

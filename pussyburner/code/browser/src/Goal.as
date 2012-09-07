@@ -7,7 +7,7 @@ package
 	import flash.display.StageScaleMode;
 	import flash.geom.Rectangle;
 	
-	import brnr.cosmos.form.PSSYLVR;
+	import brnr.cosmos.form.LVR;
 	import brnr.cosmos.foundation.BrnrCosmos;
 	import brnr.cosmos.foundation.elements.BrnrCosmosContent;
 	
@@ -24,7 +24,7 @@ package
 		
 		public function Goal( stage:Stage )
 		{
-			cosmos = new PSSYLVR;
+			cosmos = new LVR;
 			
 			TweenMax.to({}, 0.001, {}); 
 			

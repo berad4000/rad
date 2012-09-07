@@ -2,7 +2,7 @@ package burnt.rad.burn.world.souls.types
 {
 	import com.greensock.TweenMax;
 	
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	import burnt.z-unused.soul.CreationControl;
 	import burnt.z-unused.soul.CreationCore;
 	import burnt.z-unused.soul.events.CreationEvent;

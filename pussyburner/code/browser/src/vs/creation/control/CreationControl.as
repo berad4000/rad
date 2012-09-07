@@ -4,6 +4,7 @@ package vs.creation.control
 	import starling.textures.TextureAtlas;
 	
 	import vs.Course;
+	import vs.Creation;
 	import vs.creation.control.elements.CommandControl;
 	import vs.creation.control.elements.ModeControl;
 	import vs.creation.control.elements.StatControl;
@@ -26,9 +27,13 @@ package vs.creation.control
 			this.mode 		= new ModeControl( this.core 	);
 		}
 		
+		public function updateCourseIndex	( value:int		):void { this.core.courseIndex = value 	}
+		public function updateType			( value:String	):void { this.core.type = value    		}
+		public function updateCourse 		( course:Course ):void { this.core.course = course 		}
+		public function updateParent 		( par:Creation  ):void { this.core.parent = par 		}
+		
 		public function updatePosition ( x:Number, y:Number ):void
 		{
-			trace("what are you updating the postion up too " + x +" :: " + y );
 			this.core.x = x;
 			this.core.y = y;
 		}
@@ -43,7 +48,7 @@ package vs.creation.control
 		{ 
 			this.core.atlasLocation = location	
 		}
-		public function updateCosmos			( cosmos:Course ):void 		{ this.core.cosmos = cosmos				}
+		public function updateCosmos			( cosmos:Course ):void 		{ this.core.course = cosmos				}
 		public function updateFocalX 			( value:Number  ):void 		{ this.core.focalPoint.x = value;		}
 		public function updateFocalY 			( value:Number  ):void 		{ this.core.focalPoint.y = value;		}
 	}

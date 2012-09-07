@@ -5,7 +5,7 @@ package burnt.rad.burn
 	import burnt.rad.burn.world.BurnModel;
 	import burnt.rad.burn.world.BurnWorld;
 	import burnt.rad.burn.world.souls.types.Babe;
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	import vs.cosmos.VsWorld;
 	import vs.starling.StarlingWorld;
 	

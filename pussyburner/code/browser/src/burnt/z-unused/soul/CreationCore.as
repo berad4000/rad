@@ -8,7 +8,7 @@ package burnt.z-unused.soul
 	import burnt.z-unused.soul.core.ModeModel;
 	import burnt.z-unused.soul.core.StatModel;
 	//import vs.cosmos.VsWorld;
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 
 	public class CreationCore
 	{

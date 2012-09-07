@@ -10,15 +10,19 @@ package brnr.course.form
 		
 		public function PlasticJesus(){}
 		
-		protected var lvr1:BrnrCreation;
-		protected var lvr2:BrnrCreation;
-		protected var lvr3:BrnrCreation;
+		protected var avatar1:BrnrCreation;
+		protected var avatar2:BrnrCreation;
+		protected var avatar3:BrnrCreation;
 		
 		override public function appear():void
 		{
 			super.appear();
 			
-			this.environment( "media/copland/blueSky.png" );
+			trace("looking for an appearnce of the plastic jesues ");
+			
+			//this.environment(
+			
+			//this.environment( "media/copland/blueSky.png" );
 			//this.landscape("media/copland/grass.png", .2, 150 );
 			//this.landscape("media/copland/cloud1.png", .2, 0 );
 			//this.landscape("media/copland/cloud2.png", .2, 10 );
@@ -32,14 +36,17 @@ package brnr.course.form
 			//this.landscape("media/icon.png", .3, 330 );
 			//this.landscape("media/icon.png", .1, 300 ); // still needs layers
 			
-			this.creation( CreationLibrary.PSSYHORSE, 700, 100 ) as BrnrCreation;
-			this.creation( CreationLibrary.PSSYHORSE, 700, 300 ) as BrnrCreation;
-			this.creation( CreationLibrary.PSSYHORSE, 700, 500 ) as BrnrCreation;
+			//this.creation( CreationLibrary.AVATAR, 700, 100 ) as BrnrCreation;
+			//this.creation( CreationLibrary.BADDIE, 200, 500 ) as BrnrCreation;
+			
+			//this.creation( CreationLibrary.AVATAR, 700, 300 ) as BrnrCreation;
+			//this.creation( CreationLibrary.PSSYHORSE, 700, 300 ) as BrnrCreation;
+			//this.creation( CreationLibrary.PSSYHORSE, 700, 500 ) as BrnrCreation;
 			
 			
-			this.creation( CreationLibrary.FOCUS, 100, 100 ) as BrnrCreation;
-			this.creation( CreationLibrary.FOCUS, 100, 400 ) as BrnrCreation;
-			this.creation( CreationLibrary.FOCUS, 100, 600 ) as BrnrCreation;
+			//this.creation( CreationLibrary.FOCUS, 100, 100 ) as BrnrCreation;
+			//this.creation( CreationLibrary.FOCUS, 100, 400 ) as BrnrCreation;
+			//this.creation( CreationLibrary.FOCUS, 100, 600 ) as BrnrCreation;
 			
 			
 			

@@ -4,7 +4,7 @@ package burnt.z-unused.soul.controls
 	import flash.events.EventDispatcher;
 	import flash.geom.Point;
 	
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	import burnt.z-unused.soul.CreationCommand;
 	import burnt.z-unused.soul.CreationControl;
 	import burnt.z-unused.soul.CreationCore;

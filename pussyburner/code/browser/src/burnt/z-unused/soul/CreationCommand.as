@@ -2,7 +2,7 @@ package burnt.z-unused.soul
 {
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
-	import vs.Soul;
+	import burnt.z-unused.Soul;
 	
 
 	public class CreationCommand extends EventDispatcher
