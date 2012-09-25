@@ -9,9 +9,9 @@ package vs.cosmos
 		public var cosmos:Cosmos;
 		public var course:Course;
 		
-		
-		public var courseLocation:String 		= "brnr.course.form.";
-		public var creationLocation:String 		= "brnr.creation.form.";
+		//THIS NEEDS TO BE MOVED CLOSER TO THE TOP
+		public var courseLocation:String 		= "xo.course.form.";
+		public var creationLocation:String 		= "xo.creation.form.";
 		
 		public function CosmosCore( i:Cosmos = null )
 		{  

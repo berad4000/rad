@@ -22,7 +22,7 @@ package xo.course.form
 			
 			//this.environment(
 			
-			//this.environment( "media/copland/blueSky.png" );
+			this.environment( "media/copland/blueSky.png" );
 			//this.landscape("media/copland/grass.png", .2, 150 );
 			//this.landscape("media/copland/cloud1.png", .2, 0 );
 			//this.landscape("media/copland/cloud2.png", .2, 10 );
@@ -40,7 +40,7 @@ package xo.course.form
 			//this.creation( CreationLibrary.BADDIE, 200, 500 ) as BrnrCreation;
 			
 			//this.creation( CreationLibrary.AVATAR, 700, 300 ) as BrnrCreation;
-			//this.creation( CreationLibrary.PSSYHORSE, 700, 300 ) as BrnrCreation;
+			//this.creation( X0CreationLibrary.PSSYHORSE, 700, 300 ) as BrnrCreation;
 			//this.creation( CreationLibrary.PSSYHORSE, 700, 500 ) as BrnrCreation;
 			
 			

@@ -21,13 +21,14 @@ package xo.cosmos.foundation
 		
 		override public function awake(core:CosmosCore=null, control:CosmosControl=null, content:CosmosContent=null):void
 		{
-			//this.brnrCore  		= new X0CosmosCore( this );
-			//this.brnrControl 	= new X0CosmosControl(  this.brnrCore );
-			//if ( content != null ) this.brnrContent = content as X0CosmosContent;
-			//if ( content != null ) this.content = this.brnrContent;
+			this.brnrCore  		= new X0CosmosCore( this );
+			this.brnrControl 	= new X0CosmosControl(  this.brnrCore );
+			if ( content != null ) this.brnrContent = content as X0CosmosContent;
 			
-			//super.awake( this.brnrCore, this.brnrControl, this.brnrContent );
-			//this.brnrContent.awake( this.brnrCore, this.brnrControl );
+			if ( content != null ) this.content = this.brnrContent;
+			
+			super.awake( this.brnrCore, this.brnrControl, this.brnrContent );
+			this.brnrContent.awake( this.brnrCore, this.brnrControl );
 			
 		}
 	}

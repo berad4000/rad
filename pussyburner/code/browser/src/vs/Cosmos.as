@@ -20,6 +20,7 @@ package vs
 		
 		public function start ():void
 		{
+			if (this.content == null ) return
 			this.content.addEventListener( Event.ENTER_FRAME, go );	
 			Starling.current.start();
 		}
