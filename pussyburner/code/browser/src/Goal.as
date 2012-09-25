@@ -54,8 +54,8 @@ package
 			
 			if ( content == null ) return;
 			
-			this.cosmos.awake( null, null, content );
-			this.cosmos.start();
+			//this.cosmos.awake( null, null, content );
+			//this.cosmos.start();
 		}
 	}
 }

@@ -27,8 +27,8 @@ package xo.cosmos.form
 		
 		override public function awake(core:CosmosCore=null, control:CosmosControl=null, content:CosmosContent=null):void
 		{
-			super.awake( core, control, content );
-			this.control.course( "PlasticJesus" );
+			//super.awake( core, control, content );
+			//this.control.course( "PlasticJesus" );   you got a problem here
 			//this.content.addEventListener( TouchEvent.TOUCH, touch );
 		}
 		

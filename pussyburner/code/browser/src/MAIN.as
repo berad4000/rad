@@ -60,8 +60,8 @@ package
 			mStarling.showStats = true;
 			//NativeApplication.nativeApplication.systemIdleMode = SystemIdleMode.KEEP_AWAKE;
 			
-			this.addChild( text );
-			text.autoSize = TextFieldAutoSize.LEFT;
+			//this.addChild( text );
+			//text.autoSize = TextFieldAutoSize.LEFT;
 		}
 		
 		private function rootCreated ( event:Event ):void
