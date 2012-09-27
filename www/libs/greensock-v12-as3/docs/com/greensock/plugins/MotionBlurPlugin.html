@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><!-- saved from url=(0014)about:internet --><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" href="../../../style.css" type="text/css" media="screen"><link rel="stylesheet" href="../../../print.css" type="text/css" media="print"><link rel="stylesheet" href="../../../override.css" type="text/css"><meta name="keywords" content="MotionBlurPlugin,com.greensock.plugins.MotionBlurPlugin,_kill,_roundProps,_roundProps,activate,calculateChange,calculateDuration,calculateTweenDuration,parseBeziers,to"><title>com.greensock.plugins.MotionBlurPlugin</title></head><body><script language="javascript" type="text/javascript" src="../../../asdoc.js"></script><script language="javascript" type="text/javascript" src="../../../help.js"></script><script language="javascript" type="text/javascript" src="../../../cookies.js"></script><script language="javascript" type="text/javascript"><!--
+				asdocTitle = 'MotionBlurPlugin - GreenSock Documentation';
+				var baseRef = '../../../';
+				window.onload = configPage;
+			--></script>
+<script type="text/javascript">
+			scrollToNameAnchor();
+		</script><table class="titleTable" cellpadding="0" cellspacing="0" id="titleTable" style="display:none"><tr><td class="titleTableTitle" align="left">GreenSock API Docs</td><td class="titleTableTopNav" align="right"><a href="../../../package-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Packages</a>&nbsp;|&nbsp;<a href="../../../class-summary.html" onclick="loadClassListFrame('../../../all-classes.html')">All Classes</a>&nbsp;|&nbsp;<a href="../../../all-index-A.html" onclick="loadClassListFrame('../../../index-list.html')">Index</a>&nbsp;|&nbsp;<a id="framesLink1" href="../../../index.html?com/greensock/plugins/MotionBlurPlugin.html&amp;com/greensock/plugins/class-list.html">Frames</a><a id="noFramesLink1" style="display:none" href="" onclick="parent.location=document.location"> No Frames </a></td><td class="titleTableLogo" align="right" rowspan="3"><img src="../../../images/logo.jpg" class="logoImage" alt=" Adobe Logo " title=" Adobe Logo "></td></tr><tr class="titleTableRow2"><td class="titleTableSubTitle" id="subTitle" align="left">MotionBlurPlugin</td><td class="titleTableSubNav" id="subNav" align="right"><a href="#methodSummary">Methods</a></td></tr><tr class="titleTableRow3"><td colspan="3">&nbsp;</td></tr></table><script language="javascript" type="text/javascript" xml:space="preserve">
+				<!--
+				
+					if (!isEclipse() || window.name != ECLIPSE_FRAME_NAME) {titleBar_setSubTitle("MotionBlurPlugin"); titleBar_setSubNav(false,false,false,false,false,false,false,false,true,false,false	,false,false,false,false,false);}	
+				-->
+			</script><div xmlns:fn="http://www.w3.org/2005/xpath-functions" class="MainContent"><table class="classHeaderTable" cellpadding="0" cellspacing="0"><tr><td class="classHeaderTableLabel">Package</td><td><a href="package-detail.html" onclick="javascript:loadClassListFrame('class-list.html')">com.greensock.plugins</a></td></tr><tr><td class="classHeaderTableLabel">Class</td><td class="classSignature">public  class  MotionBlurPlugin</td></tr><tr><td class="classHeaderTableLabel">Inheritance</td><td class="inheritanceList">MotionBlurPlugin  <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> <a href="../../../com/greensock/plugins/TweenPlugin.html">TweenPlugin</a> <img src="../../../images/inherit-arrow.gif" title="Inheritance" alt="Inheritance" class="inheritArrow"> Object</td></tr></table><p></p><p></p><p></p>
+ MotionBlurPlugin provides an easy way to apply a directional blur to a DisplayObject based on its velocity
+ and angle of movement in 2D (x/y). This creates a much more realistic effect than a standard BlurFilter for
+ several reasons:
+ <ol>
+ 		               <li>A regular BlurFilter is limited to blurring horizontally and/or vertically whereas the motionBlur 
+ 		   gets applied at the angle at which the object is moving.</li>
+ 
+ 		               <li>A BlurFilter tween has static start/end values whereas a motionBlur tween dynamically adjusts the
+ 			values on-the-fly during the tween based on the velocity of the object. So if you use a <code>Strong.easeInOut</code>
+ 			for example, the strength of the blur will start out low, then increase as the object moves faster, and 
+ 			reduce again towards the end of the tween.</li>
+               </ol>
+ 
+ motionBlur even works on bezier/bezierThrough tweens!
+ 
+ To accomplish the effect, MotionBlurPlugin creates a Bitmap that it places over the original object, changing 
+ alpha of the original to [almost] zero during the course of the tween. The original DisplayObject still follows the 
+ course of the tween, so MouseEvents are properly dispatched. You shouldn't notice any loss of interactivity. 
+ The DisplayObject can also have animated contents - MotionBlurPlugin automatically updates on every frame. 
+ Be aware, however, that as with most filter effects, MotionBlurPlugin is somewhat CPU-intensive, so it is not 
+ recommended that you tween large quantities of objects simultaneously. You can activate <code>fastMode</code>
+ to significantly speed up rendering if the object's contents and size/color doesn't need to change during the
+ course of the tween. 
+ 
+ motionBlur recognizes the following properties:
+ <ul>
+ 		               <li>
+                     <b>strength : Number</b> - Determines the strength of the blur. The default is 1. For a more powerful
+ 							blur, increase the number. Or reduce it to make the effect more subtle.</li>
+ 
+ 		               <li>
+                     <b>fastMode : Boolean</b> - Setting fastMode to <code>true</code> will significantly improve rendering
+ 						performance but it is only appropriate for situations when the target object's contents, 
+ 						size, color, filters, etc. do not need to change during the course of the tween. It works
+ 						by essentially taking a BitmapData snapshot of the target object at the beginning of the
+ 						tween and then reuses that throughout the tween, blurring it appropriately. The default
+ 						value for <code>fastMode</code> is <code>false</code>.</li>
+ 
+ 		               <li>
+                     <b>quality : int</b> - The lower the quality, the less CPU-intensive the effect will be. Options 
+ 							are 1, 2, or 3. The default is 2.</li>
+ 
+ 		               <li>
+                     <b>padding : int</b> - padding controls the amount of space around the edges of the target object that is included
+ 						in the BitmapData capture (the default is 10 pixels). If the target object has filters applied to 
+ 						it like a GlowFilter or DropShadowFilter that extend beyond the bounds of the object itself,
+ 						you might need to increase the padding to accommodate the filters. </li>
+ 
+ 		               <li>
+                     <b>containerClass : Class</b> - MotionBlurPlugin must add a container to the target's parent's display list
+ 						to hold the blurred image during the tween (it gets removed when it's done). By default, a Sprite
+ 						is used unless it senses the presense of the Flex framework (checking <code>getDefinitionByName("mx.managers.SystemManager")</code>)
+ 						in which case it will use a UIComponent in order to comply with Flex requirements (if we
+ 						addChild() a Sprite, Flex throws an error saying it requires a UIComponent). Typically the
+ 						appropriate container class is automatically selected for you (Sprite or UIComponent) but there
+ 						are some extremely rare circumstances under which it may be useful to define the class yourself.
+ 						That's precisely what <code>containerClass</code> is for. Example: <code>containerClass:Sprite</code>
+                  </li>
+               </ul>
+ 
+ You can optionally set motionBlur to the Boolean value of <code>true</code> in order to use the defaults. (see below for examples)
+ 
+ Also note that due to a bug in Flash, if you apply motionBlur to an object that was masked in the Flash IDE it won't work
+ properly - you must apply the mask via ActionScript instead (and set both the mask's and the masked object's cacheAsBitmap
+ property to true). And another bug in Flash prevents motionBlur from working on objects that have 3D properties applied, 
+ like <code>z, rotationY, rotationX,</code> or <code>rotationZ</code>.
+ 
+ <b>USAGE:</b>
+               <code>
+ 		import com.greensock.*; 
+ 		import com.greensock.plugins.*; 
+ 		TweenPlugin.activate([MotionBlurPlugin]); //only do this once in your SWF to activate the plugin 
+ 
+ 		TweenMax.to(mc, 2, {x:400, y:300, motionBlur:{strength:1.5, fastMode:true, padding:15}}); 
+ 
+ 		//or to use the default values, you can simply pass in the Boolean "true" instead: 
+ 		TweenMax.to(mc, 2, {x:400, y:300, motionBlur:true}); 
+ </code>
+ 
+ MotionBlurPlugin is a <a href="http://www.greensock.com/club/" target="">Club GreenSock</a> membership benefit. 
+ You must have a valid membership to use this class without violating the terms of use. Visit 
+ <a href="http://www.greensock.com/club/" target="">http://www.greensock.com/club/</a> to sign up or get more details.
+ 
+ <p>
+                  <b>Copyright 2008-2012, GreenSock. All rights reserved.</b> This work is subject to the terms in <a href="http://www.greensock.com/terms_of_use.html" target="">http://www.greensock.com/terms_of_use.html</a> or for corporate Club GreenSock members, the software agreement that was issued with the corporate membership.</p>
+ 
+            <p></p><br/><hr></div><a name="methodSummary"></a><div class="summarySection"><div class="summaryTableTitle">Public Methods </div><div class="showHideLinks"><div id="hideInheritedMethod" class="hideInheritedMethod"><a class="showHideLink" href="#methodSummary" onclick="javascript:setInheritedVisible(false,'Method');"><img class="showHideLinkImage" src="../../../images/expanded.gif"> Hide Inherited Public Methods</a></div><div id="showInheritedMethod" class="showInheritedMethod"><a class="showHideLink" href="#methodSummary" onclick="javascript:setInheritedVisible(true,'Method');"><img class="showHideLinkImage" src="../../../images/collapsed.gif"> Show Inherited Public Methods</a></div></div><table cellspacing="0" cellpadding="3" class="summaryTable " id="summaryTableMethod"><tr><th>&nbsp;</th><th colspan="2">Method</th><th class="summaryTableOwnerCol">Defined By</th></tr><tr class=""><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol">&nbsp;</td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="#_kill()" class="signatureLink">_kill</a>(lookup:Object):Boolean</div><div class="summaryTableDescription">[override] </div></td><td class="summaryTableOwnerCol">MotionBlurPlugin</td></tr><tr class="hideInheritedMethod"><td class="summaryTablePaddingCol">&nbsp;</td><td class="summaryTableInheritanceCol"><img src="../../../images/inheritedSummary.gif" alt="Inherited" title="Inherited" class="inheritedSummaryImage"></td><td class="summaryTableSignatureCol"><div class="summarySignature"><a href="../../../com/greensock/plugins/TweenPlugin.html#activate()" class="signatureLink">activate</a>(plugins:Array):Boolean</div><div class="summaryTableDescription">[static] 
+		 Activates one or more plugins so that TweenLite and TweenMax recognize the associated special properties.</div></td><td class="summaryTableOwnerCol"><a href="../../../com/greensock/plugins/TweenPlugin.html">TweenPlugin</a></td></tr></table></div><script language="javascript" type="text/javascript"><!--
+										showHideInherited();
+										--></script><div class="MainContent"><a name="methodDetail"></a><div class="detailSectionHeader">Method Detail</div><a name="_kill()"></a><a name="_kill(Object)"></a><table class="detailHeader" cellpadding="0" cellspacing="0"><tr><td class="detailHeaderName">_kill</td><td class="detailHeaderParens">()</td><td class="detailHeaderType">method</td></tr></table><div class="detailBody"><code>override public function _kill(lookup:Object):Boolean</code><p></p><p><span class="label"> Parameters </span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20px"></td><td><code><span class="label">lookup</span>:Object</code></td></tr></table></p><p></p><span class="label">Returns</span><table cellpadding="0" cellspacing="0" border="0"><tr><td width="20"></td><td><code>Boolean</code></td></tr></table></div><br/><br/><hr><br/><p></p><center class="copyright"><footer></footer><br/>Wed Apr 11 2012, 11:59 AM -05:00  </center></div></body></html><!--<br/>Wed Apr 11 2012, 11:59 AM -05:00  -->
