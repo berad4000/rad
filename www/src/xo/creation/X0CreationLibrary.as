@@ -4,7 +4,7 @@ package xo.creation
 	import xo.creation.form.queen.climax.Missle;
 	import xo.creation.form.queen.fascinator.Fascinator;
 	import xo.creation.form.queen.quirk.Body;
-	import xo.creation.form.queen.quirk.Desire;
+	import xo.creation.form.queen.quirk.Lust;
 	import xo.creation.form.queen.quirk.Flow;
 	import xo.creation.form.queen.quirk.Focus;
 	import xo.creation.form.queen.quirk.Friction;
@@ -25,7 +25,7 @@ package xo.creation
 		protected 		var 	body:Body;
 		
 		static public 	var 	DESIRE:String		="queen.quirk.Desire";
-		protected 		var 	desire:Desire;
+		protected 		var 	desire:Lust;
 		
 		static public 	var 	FLOW:String			="queen.quirk.Flow";
 		protected 		var 	flow:Flow;

@@ -3,6 +3,7 @@ package vs.creation.core
 	import com.laiyonghao.Uuid;
 	
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	
 	import starling.textures.TextureAtlas;
 	
@@ -20,6 +21,7 @@ package vs.creation.core
 		public var courseIndex:int = 0;
 		
 		public var id:String
+		public var timestamp:String;
 		public var name:String;
 		public var type:String;
 		
@@ -40,16 +42,34 @@ package vs.creation.core
 		
 		public var parent:Creation;
 		
+		public var collideIndex:int = 0;
+		public var collideList:Vector.<Creation> = new Vector.<Creation>; //not sure about this
+		public var collides:Dictionary = new Dictionary; //not sure about this
+		
 		public function CreationCore( i:Creation = null )
 		{
 			this.self = i;
 			
-			var uuid:Uuid = new Uuid; 
-			this.id = uuid.toString();
+			var date:Date = new Date();
+			this.timestamp = String( date.time );
 			
 			body 		= new StatCore( this );
 			command 	= new CommandCore( this );
 			mode 		= new ModeCore( this );
+		}
+		
+		public function destroy ():void
+		{
+			collideList						= null;
+			collides						= null;
+			
+			if ( body != null ) 	body.destroy();
+			if ( command != null )	command.destroy();
+			if ( mode != null )		mode.destroy();
+			
+			body 		= null;
+			command		= null;
+			mode 		= null;
 		}
 		
 		public function get focalPoint ():Point

@@ -141,8 +141,8 @@ package starling.display
          *  If requested, the child will be disposed right away. */
         public function removeChild(child:DisplayObject, dispose:Boolean=false):DisplayObject
         {
-            var childIndex:int = getChildIndex(child);
-            if (childIndex != -1) removeChildAt(childIndex, dispose);
+           	var childIndex:int = getChildIndex(child);
+			if (childIndex != -1) removeChildAt(childIndex, dispose);
             return child;
         }
         

@@ -22,9 +22,9 @@ package xo.course.foundation
 	public class X0Course extends Course
 	{
 		
-		protected var brnrCore:X0CourseCore;
-		protected var brnrControl:X0CourseControl;
-		protected var brnrContent:X0CourseContent;
+		protected var xoCore:X0CourseCore;
+		protected var xoControl:X0CourseControl;
+		protected var xoContent:X0CourseContent;
 		
 		protected var horse:HorseOLD; //needs to go into a library
 		
@@ -38,48 +38,46 @@ package xo.course.foundation
 			{
 				landscapeDisplay = new Landscape; 
 				landscapeDisplay.awake( this.core, this.control );
-				brnrContent.backgroundLayer.addChild( landscapeDisplay );
+				xoContent.backgroundLayer.addChild( landscapeDisplay );
 			}
 			
 			landscapeDisplay.addLayer( layer );
 		}
 		
-		override public function addEnvironment(display:Environment):void
+		override public function viewEnvironment(display:Environment):void
 		{
-			
-			super.addEnvironment( display );
-			trace("Environmet " + display );
-			this.brnrContent.environment.addChild( display );
+			super.viewEnvironment( display );
+			this.xoContent.environment.addChild( display );
 		}
 		
 		override public function addCreation ( creation:Creation ):void
 		{
 			super.addCreation( creation );
-			if ( creation.parent == null )  				this.brnrContent.creationLayer.addChild( creation.content 	);
-			if ( creation.parent != null )					creation.parent.content.addChild( creation.content 			);
-			if ( creation.type == X0CreationType.FOCUS ) 	this.brnrContent.uiLayer.addChild( creation.content 		);
+			//if ( creation.parent == null )  				this.brnrContent.creationLayer.addChild( creation.content 	);
+			//if ( creation.parent != null )				creation.parent.content.addChild( creation.content 			);
+			//if ( creation.type == X0CreationType.FOCUS ) 	this.brnrContent.uiLayer.addChild( creation.content 		);
 				
 		}
 		
 		override public function removeCreation ( creation:Creation ):void
 		{
 		
-			if ( creation.parent == null )  				this.brnrContent.creationLayer.removeChild( creation.content 	);
+			if ( creation.parent == null )  				this.xoContent.creationLayer.removeChild( creation.content 	);
 			if ( creation.parent != null )					creation.parent.content.removeChild( creation.content 			);
-			if ( creation.type == X0CreationType.FOCUS ) 	this.brnrContent.uiLayer.removeChild( creation.content 			);
+			if ( creation.type == X0CreationType.FOCUS ) 	this.xoContent.uiLayer.removeChild( creation.content 			);
 				
 			super.removeCreation( creation );
 		}
 	
 		override public function awake( core:CourseCore=null, control:CourseControl=null, content:CourseContent=null ):void
 		{
-			this.brnrCore  							= new X0CourseCore( this );
-			this.brnrControl 						= new X0CourseControl(  this.brnrCore );
-			if ( content != null ) this.brnrContent = content as X0CourseContent;
-			if ( content == null ) this.brnrContent = new X0CourseContent;
+			this.xoCore  							= new X0CourseCore( this );
+			this.xoControl 						= new X0CourseControl(  this.xoCore );
+			if ( content != null ) this.xoContent = content as X0CourseContent;
+			if ( content == null ) this.xoContent = new X0CourseContent;
 			
-			super.awake( this.brnrCore, this.brnrControl, this.brnrContent );
-			this.brnrContent.awake( this.brnrCore, this.brnrControl );
+			super.awake( this.xoCore, this.xoControl, this.xoContent );
+			this.xoContent.awake( this.xoCore, this.xoControl );
 			
 			this.creationLocation = "brnr.creation.form."; // needs to be moved into the COSMOS
 		}

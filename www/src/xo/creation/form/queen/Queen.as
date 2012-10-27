@@ -1,7 +1,7 @@
 package xo.creation.form.queen
 {
 	import xo.creation.form.queen.quirk.Body;
-	import xo.creation.form.queen.quirk.Desire;
+	import xo.creation.form.queen.quirk.Lust;
 	import xo.creation.form.queen.quirk.Flow;
 	import xo.creation.form.queen.quirk.Focus;
 	import xo.creation.form.queen.quirk.Friction;
@@ -20,29 +20,30 @@ package xo.creation.form.queen
 	
 	public class Queen extends X0Creation
 	{
-		protected var flow:Flow;
-		protected var body:Body;
-		protected var desire:Desire;
-		protected var focus:Focus;
+		
 		protected var friction:Friction;
+		
+		//protected var flow:Flow;
+		//protected var body:Body;
+		//protected var desire:Lust;
+		//protected var focus:Focus;
 		
 		public function Queen(){}
 		
 		override public function setUp():void
 		{
-			this.flow 		= new Flow;
-			this.body 		= new Body;
-			this.desire 	= new Desire;
-			this.focus 		= new Focus;
 			this.friction 	= new Friction;
+			
+			//this.flow 		= new Flow;
+			//this.body 		= new Body;
+			//this.desire 	= new Desire;
+			//this.focus 		= new Focus;
 			
 			//var climax:MagicMissle = new MagicMissle;
 			//climax.focus = this.focus;
 			//var sourceX:Number = this.x + this.parent.x;
 			//var sourceY:Number = this.y + this.parent.y;
 			//this.course.creation( CreationLibrary.CLIMAX, sourceX, sourceY, climax );
-			
-			
 		}
 		
 		private function pop ( event:TimerEvent ):void
@@ -52,9 +53,12 @@ package xo.creation.form.queen
 		
 		override public function appear():void
 		{
+			trace("is the queen making an appearence " );
+			
+			this.course.addCreation( this.friction );
 			//this.addToon( BrnrToon.IDLE, 24, true ); 
 			//this.toon = BrnrToon.IDLE;1
-			//super.appear();
+			super.appear();
 			//this.content.addEventListener( TouchEvent.TOUCH, touch );
 		}
 		
@@ -69,26 +73,26 @@ package xo.creation.form.queen
 		
 		private function touch ( event:TouchEvent ):void
 		{
-			var touch:Touch = event.getTouch( event.currentTarget as DisplayObject ); 
+			//var touch:Touch = event.getTouch( event.currentTarget as DisplayObject ); 
 			
-			if ( touch == null ) return; /// seems very weird Taking this out lets see if it will crash
+			//if ( touch == null ) return; /// seems very weird Taking this out lets see if it will crash
 			
-			var target:CreationContent = touch.target.parent as CreationContent; 
-			var creation:Creation = target.creation; 
+			//var target:CreationContent = touch.target.parent as CreationContent; 
+			//var creation:Creation = target.creation; 
 			
-			if ( creation != this ) return;
+			//if ( creation != this ) return;
 			
-			switch ( touch.phase )
-			{
-				case TouchPhase.BEGAN: 
-				go();
-				break;
+			//switch ( touch.phase )
+			//{
+			//	case TouchPhase.BEGAN: 
+			//	go();
+			//	break;
 				
-				case TouchPhase.MOVED:
-				break;
-				case TouchPhase.ENDED:
-				break;
-			}
+			//	case TouchPhase.MOVED:
+			//	break;
+			//	case TouchPhase.ENDED:
+			//	break;
+			//}
 		}
 		
 	}

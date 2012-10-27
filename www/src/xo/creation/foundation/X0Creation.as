@@ -1,13 +1,14 @@
 package xo.creation.foundation
 {
-	import xo.creation.foundation.elements.X0CreationContent;
-	import xo.creation.foundation.elements.X0CreationControl;
-	import xo.creation.foundation.elements.X0CreationCore;
-	
 	import vs.Creation;
 	import vs.creation.content.CreationContent;
 	import vs.creation.control.CreationControl;
 	import vs.creation.core.CreationCore;
+	
+	import xo.creation.foundation.elements.X0CreationContent;
+	import xo.creation.foundation.elements.X0CreationControl;
+	import xo.creation.foundation.elements.X0CreationCore;
+	import xo.creation.foundation.objects.X0Toon;
 
 	public class X0Creation extends Creation
 	{
@@ -22,7 +23,6 @@ package xo.creation.foundation
 		
 		override public function awake(core:CreationCore=null, control:CreationControl=null, content:CreationContent=null):void
 		{
-			
 			if ( core == null )		this.brnrCore  		= new X0CreationCore( this );
 			if ( control == null )	this.brnrControl 	= new X0CreationControl(  this.brnrCore );
 			if ( content == null ) 	this.brnrContent 	= new X0CreationContent;
@@ -32,5 +32,16 @@ package xo.creation.foundation
 			super.awake( this.brnrCore, this.brnrControl, this.brnrContent );
 			this.brnrContent.awake( this.brnrCore, this.brnrControl );
 		}
+		
+		override public function destroy():void
+		{
+			this.brnrCore  		= null;
+			this.brnrControl 	= null;
+			this.brnrContent 	= null;
+			
+			super.destroy();
+		}
+		
+		override public function appear():void	{	super.appear();	}
 	}
 }

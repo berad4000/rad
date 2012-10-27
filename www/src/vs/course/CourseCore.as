@@ -7,6 +7,7 @@ package vs.course
 	import starling.textures.Texture;
 	import starling.textures.TextureAtlas;
 	
+	import vs.Cosmos;
 	import vs.Course;
 	import vs.course.content.environment.Environment;
 	import vs.course.content.landscape.LandscapeLayer;
@@ -15,6 +16,8 @@ package vs.course
 	{
 		public var self:Course;
 		
+		public var cosmos:Cosmos;
+		
 		public var height:Number = 0;
 		public var width:Number  = 1280;
 		
@@ -22,29 +25,17 @@ package vs.course
 		
 		public var scaleFactor:Number = 1;
 		
-		public var creationLocation:String = "brnr.creation.form.";
+		public var creationLocation:String;
 		
 		//may not need this
-		public var bitmapData:Dictionary = new Dictionary( true );
-		public var bitmapDataList:Vector.<BitmapData> 		= new Vector.<BitmapData>;
-		
-		public var environment:Dictionary	= new Dictionary( true );
+		public var environment:Dictionary	= new Dictionary( 	true );
 		public var environmentList:Vector.<Environment>		= new Vector.<Environment>;
 		
-		public var landscape:Dictionary 	= new Dictionary( true );
+		public var landscape:Dictionary 	= new Dictionary( 	true );
 		public var landscapeList:Vector.<LandscapeLayer> 	= new Vector.<LandscapeLayer>; 
 		 
-		public var creations:Dictionary 	= new Dictionary( true );
-		public var creationList:Array = new Array;
-		
-		public var atlus:Dictionary 		= new Dictionary( true );
-		public var atlusList:Vector.<XML> 			= new Vector.<XML>;
-		
-		public var atlusTexture:Dictionary = new Dictionary( true );
-		public var atlusTextureList:Vector.<TextureAtlas> = new Vector.<TextureAtlas>;
-		
-		public var texture:Dictionary		= new Dictionary( true );
-		public var textureList:Vector.<Texture>			= new Vector.<Texture>;
+		public var creations:Dictionary 	= new Dictionary( 	true );
+		public var creationList:Array 		= new Array;
 		
 		public function CourseCore( begin:Course = null )
 		{

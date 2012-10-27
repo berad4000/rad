@@ -19,6 +19,12 @@ package vs.creation.core.elements
 			this.core = core;
 		}
 		
+		public function destroy ():void
+		{
+			statList 	= null;
+			stats		= null;
+		}
+		
 		public function reset ():void
 		{
 			this.statList 		= new Vector.<Stat>();

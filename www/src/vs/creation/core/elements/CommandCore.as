@@ -19,6 +19,15 @@ package vs.creation.core.elements
 			_core = source;
 		}
 		
+		public function destroy ():void
+		{
+			_core = null; 
+			
+			groupList = null;
+			groups = null; 
+			target = null;
+		}
+		
 		public function reset ():void
 		{
 			groupList 	= new Vector.<Vector>;

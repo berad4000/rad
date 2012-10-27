@@ -53,6 +53,8 @@ package starling.display
 				if (!mImage) // if this is the first animation, we won't have an image created, so do that now
 				{
 					mImage = new Image(textures[0]);
+					mImage.x = -mImage.width  / 2;//added this code	
+					mImage.y = -mImage.height / 2;//added this code
 					addChild(mImage);
 					mCurrentAnimation = mAnimations[animName]; // if this is the first animation added, set it as the current
 				}

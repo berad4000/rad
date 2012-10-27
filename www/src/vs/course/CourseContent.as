@@ -29,13 +29,7 @@ package vs.course
 		
 		public function execute (  ):void	
 		{
-			var max:int = this.core.creationList.length;
 			
-			for ( var i:int = 0; i <  max; i++ )
-			{
-				var creation:Creation = this.core.creationList[ i ]; 
-				this.addChildAt( creation.content, i );
-			}
 		}
 		
 		public function action ():void						{}

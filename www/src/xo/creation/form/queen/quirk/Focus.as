@@ -38,8 +38,6 @@ package xo.creation.form.queen.quirk
 		
 		override public function appear():void
 		{
-			this.addToon( X0Toon.IDLE, 18, true );
-			this.toon = X0Toon.IDLE;
 			super.appear();
 			
 			this.content.addEventListener( TouchEvent.TOUCH, touch );
@@ -47,7 +45,7 @@ package xo.creation.form.queen.quirk
 		
 		override public function updatePostion ( x:Number, y:Number ):void
 		{
-			this.control.updatePosition( x, y );
+			//this.control.updatePosition( x, y );
 		}
 		
 		override public function action():void

@@ -1,7 +1,5 @@
 package vs.course.content.landscape
 {
-	import burnt.rad.burn.world.Assets;
-	
 	import com.laiyonghao.Uuid;
 	
 	import flash.display.BitmapData;

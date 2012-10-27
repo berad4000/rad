@@ -13,7 +13,6 @@ package xo.cosmos.foundation.elements
 		override public function awake(core:CosmosCore, control:CosmosControl):void
 		{
 			super.awake( core, control ); 
-			trace("Awaking the COSMOS.");
 		}
 	}
 }

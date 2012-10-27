@@ -14,5 +14,10 @@ package vs.creation.core.elements
 		{
 			this.core = core;
 		}
+		
+		public function destroy():void
+		{
+			core = null;
+		}
 	}
 }

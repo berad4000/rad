@@ -51,6 +51,14 @@ package xo.course.foundation.elements
 				creationLayer.addChildAt( creation.content, index );
 				index += 1
 			}
+			
+			max = this.core.creationList.length;
+			
+			for ( var a:int = 0; i <  max; a++ )
+			{
+				var creat:Creation = this.core.creationList[ a ]; 
+				this.addChildAt( creat.content, a );
+			}
 		}
 		
 		

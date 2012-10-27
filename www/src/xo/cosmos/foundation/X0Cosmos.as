@@ -29,7 +29,11 @@ package xo.cosmos.foundation
 			
 			super.awake( this.brnrCore, this.brnrControl, this.brnrContent );
 			this.brnrContent.awake( this.brnrCore, this.brnrControl );
-			
+		}
+		
+		override public function appear():void
+		{
+			trace("does anything appear ");
 		}
 	}
 }

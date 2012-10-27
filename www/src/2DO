@@ -1,0 +1,9 @@
++need to move the asset loading into the cosmos instead of the course
++make it go full-screen
+
+
+how does it currently work
+--------------------------
+
+checks to see if the data exists; then
+

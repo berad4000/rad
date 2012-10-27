@@ -15,8 +15,6 @@ package xo.creation.form.queen.toy
 		
 		override public function appear():void
 		{
-			this.addToon( X0Toon.IDLE, 24, true );
-			this.toon = X0Toon.IDLE;
 			super.appear();
 		}
 		
